@@ -1,0 +1,7 @@
+{
+  "name": "Z-Help-v2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
