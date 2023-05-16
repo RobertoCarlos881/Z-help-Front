@@ -1,3 +1,43 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu side="end" menuId="MENU" contentId="main">
+    <ion-header >
+      <ion-toolbar color="primary" class="ion-padding-vertical" style=height:100px>
+        <ion-buttons slot="start">
+          <ion-avatar>
+            <img src="/assets/yo2.png" />
+          </ion-avatar>
+        </ion-buttons>
+        <ion-label class="ion-padding-horizontal">PRAXEDES</ion-label>
+        <ion-icon name="exit-outline" slot="end" size="large" class="ion-padding"></ion-icon>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content >
+      <ion-list >
+        <ion-item class="opciones" detail>
+          <ion-icon slot="start" name="help-circle-outline" size="large" color="dark"></ion-icon>
+          <ion-text color="dark" slot="start">
+          ¿Necesitas ayuda?
+          </ion-text>
+        </ion-item>
+
+        <ion-item class="opciones" detail>
+          <ion-icon slot="start" name="megaphone-sharp" color="dark"></ion-icon>
+          <ion-text color="dark" slot="start">
+            Prueba S.O.S
+          </ion-text>
+        </ion-item>
+
+        <ion-item class="opciones" detail>
+          <ion-icon slot="start" name="add" color="dark"></ion-icon>
+          <ion-text color="dark" slot="start">
+            Awesome text
+          </ion-text>
+        </ion-item>
+        
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
