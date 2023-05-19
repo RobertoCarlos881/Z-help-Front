@@ -12,6 +12,18 @@ const routes: Routes = [
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'contacts',
+    loadChildren: () => import('./pages/contacts/contacts.module').then( m => m.ContactsPageModule)
+  },
+  {
+    path: 'z-help',
+    loadChildren: () => import('./pages/z-help/z-help.module').then( m => m.ZHelpPageModule)
+  },
   
 ];
 

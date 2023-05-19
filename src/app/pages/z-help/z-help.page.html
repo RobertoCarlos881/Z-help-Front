@@ -1,51 +1,11 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title mode="ios">Tu ubicacion:</ion-title>
 
-    <ion-buttons slot="start">
-      <ion-avatar mode="ios">
-        <img src="/assets/yo2.png" />
-      </ion-avatar>
-    </ion-buttons>
-
-    <ion-icon name="locate-sharp" slot="end" size="large" class="ion-padding"></ion-icon>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content >
-
-  <ion-fab vertical="top" horizontal="start" slot="fixed">
-    <ion-icon name="compass-outline" size="large"></ion-icon>
-  </ion-fab>
-
-  <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="mostrarMenu()" size="large">
-      <ion-icon name="menu-sharp" size="large"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button size="large">
-      <ion-icon name="share-social-outline" size="large"></ion-icon>
-    </ion-fab-button>
-
-    <ion-fab-list side="top">
-      <ion-fab-button>
-        <ion-icon name="timer" size="large"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button>
-        <ion-icon name="location-sharp" size="large"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
-  
+<ion-content>
   <ion-fab slot="fixed" vertical="bottom" horizontal="center" [edge]="true">
     <ion-fab-button color="danger" size="large">
       <ion-icon name="radio-sharp" size="large"></ion-icon>
       <!--<ion-icon name="megaphone-sharp" size="large"></ion-icon>-->
     </ion-fab-button>
   </ion-fab>
-
 </ion-content>
 
 <ion-footer>
@@ -82,5 +42,4 @@
     </ion-tabs>
   </ion-toolbar>
 </ion-footer>
-
 
