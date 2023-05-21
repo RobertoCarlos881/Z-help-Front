@@ -5,7 +5,7 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: 'z-help',
     pathMatch: 'full'
   },
   {
@@ -23,6 +23,18 @@ const routes: Routes = [
   {
     path: 'z-help',
     loadChildren: () => import('./pages/z-help/z-help.module').then( m => m.ZHelpPageModule)
+  },
+  {
+    path: 'foro',
+    loadChildren: () => import('./pages/foro/foro.module').then( m => m.ForoPageModule)
+  },
+  {
+    path: 'actividad',
+    loadChildren: () => import('./pages/actividad/actividad.module').then( m => m.ActividadPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   
 ];

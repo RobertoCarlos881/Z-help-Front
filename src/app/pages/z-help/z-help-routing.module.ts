@@ -16,6 +16,19 @@ const routes: Routes = [
       {
         path: 'contacts',
         loadChildren: () => import('../contacts/contacts.module').then( m => m.ContactsPageModule )
+      },
+      {
+        path: 'foro',
+        loadChildren: () => import('../foro/foro.module').then( m => m.ForoPageModule)
+      },
+      {
+        path: 'actividad',
+        loadChildren: () => import('../actividad/actividad.module').then( m => m.ActividadPageModule)
+      },
+      {
+        path: '',
+        redirectTo: '/z-help/inicio',
+        pathMatch: 'full'
       }
     ]
   }

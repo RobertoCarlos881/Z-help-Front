@@ -1,0 +1,70 @@
+<ion-header [translucent]="false">
+  <ion-toolbar color="primary">
+    <ion-title mode="ios">Foro</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-avatar mode="ios">
+        <img src="/assets/yo2.png" />
+      </ion-avatar>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <br>
+  <ion-segment [scrollable]="true" value="Todo">
+    <ion-segment-button value="Todo">
+      <ion-label>Todo</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Amigos">
+      <ion-label>Amigos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Consejos">
+      <ion-label>Consejos</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Novedades">
+      <ion-label>Novedades</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+      <ion-card>
+        <ion-grid fixed>
+
+          <ion-row>
+            <ion-col size="2">
+              <ion-avatar mode="ios">
+                <img src="/assets/yo2.png" />
+              </ion-avatar>
+            </ion-col>
+
+            <ion-col size="8.5">
+              <ion-card-header class="pad-top-name">
+                <ion-card-title>PRAXEDES</ion-card-title>
+                <ion-card-subtitle>Hace 5 minutos</ion-card-subtitle>
+              </ion-card-header>
+            </ion-col>
+
+            <ion-col size="1">
+              <ion-icon name="bookmark-outline" size="large"></ion-icon>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-card-content>
+              <p>Awas banda, hay un mariguano picando raza por este rumbo.</p>
+              <br>
+              <ion-img src="assets/Captura.JPG"></ion-img>
+            </ion-card-content>
+          </ion-row>
+
+        </ion-grid>       
+      </ion-card>
+   
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button size="large" color="secondary">
+          <ion-icon name="add" size="large"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+</ion-content>

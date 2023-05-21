@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-z-help',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ZHelpPage implements OnInit {
 
-  constructor() { }
+  constructor(private menu: MenuController) { }
 
   ngOnInit() {
+  }
+  mostrarMenu() {
+    this.menu.enable(true, 'MENU');
+    this.menu.open('MENU');
   }
 
 }
