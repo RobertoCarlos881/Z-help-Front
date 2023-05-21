@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ForoPage implements OnInit {
 
+  guardado: boolean = false
+
   constructor() { }
 
   ngOnInit() {
+  }
+  onClick (){
+    this.guardado = !this.guardado;
   }
 
 }

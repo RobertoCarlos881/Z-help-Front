@@ -3,9 +3,11 @@
     <ion-title mode="ios">Actividad</ion-title>
 
     <ion-buttons slot="start">
-      <ion-avatar mode="ios">
-        <img src="/assets/yo2.png" />
-      </ion-avatar>
+      <ion-button href="perfil" fill="clear" class="head-perfil">
+        <ion-avatar mode="ios">
+          <img src="/assets/yo2.png" />
+        </ion-avatar>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 
@@ -23,7 +25,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item detail >
+    <ion-item detail routerLink="/z-help/actividad/sos">
       <ion-icon color="danger" name="radio-sharp" slot="start" size="large"></ion-icon>
       <ion-label>
         <h2>Boton S.O.S</h2>
@@ -34,7 +36,7 @@
       </ion-label>
     </ion-item>
 
-    <ion-item detail >
+    <ion-item detail routerLink="/z-help/actividad/zone" >
       <ion-icon color="warning" name="warning-outline" slot="start" size="large"></ion-icon>
       <ion-label>
         <h2>Act. zona de riesgo</h2>

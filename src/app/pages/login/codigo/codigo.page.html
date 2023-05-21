@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content color="secondary">
+  <ion-img src="assets/logo.png"></ion-img>
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-title class="bienvenida" color="primary" mode="ios">Ingresa el código</ion-card-title>
+      <ion-card-subtitle class="bienvenida" color="medium">Enviamos un código al correo registrado con ese nombre, por favor ingrésalo para validar tu cuenta.</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formularioCodigo">
+        <ion-item color="dark" class="casilla">
+          <ion-label position="floating">Código</ion-label>
+          <ion-input formControlName="codigo" type="password"></ion-input>
+        </ion-item>
+        <ion-label slot="end"><u>Reenviar el código</u></ion-label>
+      </form>
+      <br>
+      <ion-button expand="block" shape="round" href="/login/new-pass">
+        validar
+      </ion-button>
+      <ion-button expand="block" shape="round" fill="clear" href="/">
+        Volver
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

@@ -3,9 +3,11 @@
     <ion-title mode="ios">Foro</ion-title>
 
     <ion-buttons slot="start">
-      <ion-avatar mode="ios">
-        <img src="/assets/yo2.png" />
-      </ion-avatar>
+      <ion-button href="perfil" fill="clear" class="head-perfil">
+        <ion-avatar mode="ios">
+          <img src="/assets/yo2.png" />
+        </ion-avatar>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 
@@ -13,9 +15,6 @@
   <ion-segment [scrollable]="true" value="Todo">
     <ion-segment-button value="Todo">
       <ion-label>Todo</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="Amigos">
-      <ion-label>Amigos</ion-label>
     </ion-segment-button>
     <ion-segment-button value="Consejos">
       <ion-label>Consejos</ion-label>
@@ -39,15 +38,19 @@
               </ion-avatar>
             </ion-col>
 
-            <ion-col size="8.5">
+            <ion-col size="7.5">
               <ion-card-header class="pad-top-name">
                 <ion-card-title>PRAXEDES</ion-card-title>
                 <ion-card-subtitle>Hace 5 minutos</ion-card-subtitle>
               </ion-card-header>
             </ion-col>
 
-            <ion-col size="1">
-              <ion-icon name="bookmark-outline" size="large"></ion-icon>
+            <ion-col size="2">
+              <ion-button (click)="onClick()" fill="clear">
+                <ion-icon [name]=" guardado ? 'bookmark':'bookmark-outline' "  size="large"></ion-icon>
+                
+              </ion-button>
+              
             </ion-col>
           </ion-row>
 
@@ -63,7 +66,7 @@
       </ion-card>
    
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button size="large" color="secondary">
+        <ion-fab-button size="large" color="secondary" href="foro/publicar">
           <ion-icon name="add" size="large"></ion-icon>
         </ion-fab-button>
       </ion-fab>
