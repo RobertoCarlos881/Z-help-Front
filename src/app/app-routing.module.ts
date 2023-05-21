@@ -5,7 +5,7 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: 'z-help',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
