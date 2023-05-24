@@ -17,10 +17,8 @@ export class RegistroPage implements OnInit {
   constructor(public fb: FormBuilder) {
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", Validators.required),
-      'password': new FormControl("", Validators.required),
-      'confirmacionPassword': new FormControl("", Validators.required),
-      'escuela': new FormControl("", Validators.required),
-      'boleta': new FormControl("", Validators.required),
+      'Correo electronico': new FormControl("", Validators.required),
+      'Numero de celular': new FormControl("", Validators.required),
     });
   }
   ngOnInit() {

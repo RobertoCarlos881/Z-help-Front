@@ -1,0 +1,25 @@
+.bienvenida{
+    text-align: center;
+}
+
+.card {
+    //align-items: center;
+    //background-color: rgb(255, 255, 255);
+    border-radius: 40px;
+}
+
+.casilla {
+    align-items: center;
+    border: 2px solid #1e31ff;
+    border-radius: 40px;
+    margin: 8px auto 5px auto;
+}
+.icono {
+    width: 200px;
+    height: 200px;
+    //background-color: rgb(255, 255, 255);
+    border-radius: 110px;
+    margin: 25px auto 2px auto;
+    border: 8px solid #3880ff;
+    display: flex;
+ }

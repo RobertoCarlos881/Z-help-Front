@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="z-help/contacts" text="Regresar" mode="ios"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-icon name="people-outline" class="icono" color="dark"></ion-icon>
+  <ion-card class="card">
+    <ion-card-header>
+      <ion-card-title class="bienvenida" color="primary" mode="ios">Ingresa el código</ion-card-title>
+      <ion-card-subtitle class="bienvenida" color="medium">Enviamos un código al número de teléfono de su contacto de confianza, por favor ingrésalo para validar su número.</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <form >
+        <ion-item  class="casilla">
+          <ion-label position="floating">Código</ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+        <ion-label slot="end"><u>Reenviar el código</u></ion-label>
+      </form>
+      <br>
+      <ion-button expand="block" shape="round" href="/z-help/contacts">
+        validar
+      </ion-button>
+      <ion-button expand="block" shape="round" fill="clear" href="contacts/add">
+        Volver
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'new-pass',
     loadChildren: () => import('./new-pass/new-pass.module').then( m => m.NewPassPageModule)
+  },
+  {
+    path: 'numero',
+    loadChildren: () => import('./numero/numero.module').then( m => m.NumeroPageModule)
   }
 ];
 

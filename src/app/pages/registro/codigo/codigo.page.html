@@ -6,7 +6,7 @@
   <ion-card class="card">
     <ion-card-header>
       <ion-card-title class="bienvenida" color="primary" mode="ios">Ingresa el código</ion-card-title>
-      <ion-card-subtitle class="bienvenida" color="medium">¡LISTO! Enviamos un código al número de teléfono registrado con ese usuario, por favor ingrésalo para validar tu cuenta.</ion-card-subtitle>
+      <ion-card-subtitle class="bienvenida" color="medium">Enviamos un código al número de teléfono registrado, por favor ingrésalo para validar el número.</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <form [formGroup]="formularioCodigo">
@@ -17,10 +17,10 @@
         <ion-label slot="end"><u>Reenviar el código</u></ion-label>
       </form>
       <br>
-      <ion-button expand="block" shape="round" href="/login/new-pass">
+      <ion-button expand="block" shape="round" href="/registro/password">
         validar
       </ion-button>
-      <ion-button expand="block" shape="round" fill="clear" href="/">
+      <ion-button expand="block" shape="round" fill="clear" href="/registro">
         Volver
       </ion-button>
     </ion-card-content>
