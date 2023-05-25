@@ -11,63 +11,263 @@
     </ion-buttons>
   </ion-toolbar>
 
+  
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
   <br>
   <ion-segment [scrollable]="true" value="Todo">
     <ion-segment-button value="Todo">
       <ion-label>Todo</ion-label>
     </ion-segment-button>
     <ion-segment-button value="Consejos">
-      <ion-label>Consejos</ion-label>
+      <ion-label>Mis publicaciones</ion-label>
     </ion-segment-button>
     <ion-segment-button value="Novedades">
-      <ion-label>Novedades</ion-label>
+      <ion-label>Guardadas</ion-label>
     </ion-segment-button>
   </ion-segment>
-
-</ion-header>
-
-<ion-content [fullscreen]="true">
 
       <ion-card>
         <ion-grid fixed>
 
-          <ion-row>
+          <ion-row class="grid-publi">
             <ion-col size="2">
               <ion-avatar mode="ios">
                 <img src="/assets/yo2.png" />
               </ion-avatar>
             </ion-col>
 
-            <ion-col size="7.5">
-              <ion-card-header class="pad-top-name">
+            <ion-col size="7">
+              <ion-card-header class="pad-top-name" mode="md">
                 <ion-card-title>PRAXEDES</ion-card-title>
                 <ion-card-subtitle>Hace 5 minutos</ion-card-subtitle>
               </ion-card-header>
             </ion-col>
 
-            <ion-col size="2">
-              <ion-button (click)="onClick()" fill="clear">
-                <ion-icon [name]=" guardado ? 'bookmark':'bookmark-outline' "  size="large"></ion-icon>
-                
+            <ion-col size="1.5" >
+              <ion-button (click)="presentToast('bottom')" (click)="onClick()" fill="clear" class="ion-no-padding">
+                <ion-icon [name]=" guardado ? 'bookmark':'bookmark-outline' "  ></ion-icon>
               </ion-button>
-              
+            </ion-col>
+
+            <ion-col size="1.5">
+              <ion-button (click)="presentPopover2( $event )" fill="clear" class="ion-no-padding" color="dark">
+                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+              </ion-button>
             </ion-col>
           </ion-row>
+        </ion-grid> 
 
-          <ion-row>
-            <ion-card-content>
-              <p>Awas banda, hay un mariguano picando raza por este rumbo.</p>
-              <br>
+        <ion-card-content>
+        <ion-list mode="md">
+          <ion-item >
+            <p>Amigos, tengan mucho cuidado al pasar por esta zona, via a unos porros tomando y fumando alli en la mañana.</p>
+          </ion-item>
+          <ion-item lines="full" class="ion-padding-bottom">
+            
+            <ion-img src="assets/Captura.JPG"></ion-img>
+            
+          </ion-item>
+
+          <ion-item button (click)="presentPopover()" lines="full" class="ion-padding-bottom" [detail]="true">
+            <ion-avatar slot="start" class="send ion-no-padding">
+              <img src="/assets/yo2.png" />
+            </ion-avatar>
+            Comentar...
+          </ion-item>
+          <ion-item-divider mode="ios">
+            <ion-label> Comentarios </ion-label>
+          </ion-item-divider>
+
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-avatar slot="start" class="send">
+                <img src="/assets/yo2.png" />
+              </ion-avatar>
+              <ion-label >
+                <h2>PRAXEDES</h2>
+                <p>Hace 2 minutos</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-label class="ion-text-wrap coment">Muchas gracias bro, iba a pasar por allí cuando saliera a de la escuela, tendré que tomar otra ruta.</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-avatar slot="start" class="send">
+                <img src="/assets/anonimo.png" />
+              </ion-avatar>
+              <ion-label >
+                <h2>ANONIMO</h2>
+                <p>Hace 2 minutos</p>
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-label class="ion-text-wrap coment">Muchas gracias bro, iba a pasar por allí cuando saliera a de la escuela, tendré que tomar otra ruta.x2</ion-label>
+            </ion-item>
+            <ion-item lines="full" class="ion-padding-bottom">
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
               <ion-img src="assets/Captura.JPG"></ion-img>
-            </ion-card-content>
-          </ion-row>
+              
+            </ion-item>
+          </ion-item-group>
 
-        </ion-grid>       
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-avatar slot="start" class="send">
+                <img src="/assets/yo2.png" />
+              </ion-avatar>
+              <ion-label >
+                <h2>PRAXEDES</h2>
+                <p>Hace 2 minutos</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-label class="ion-text-wrap coment">Muchas gracias bro, iba a pasar por allí cuando saliera a de la escuela, tendré que tomar otra ruta.x3</ion-label>
+            </ion-item>
+          </ion-item-group>
+        </ion-list>
+        </ion-card-content>
+
       </ion-card>
+
+
+      <ion-card>
+        <ion-grid fixed>
+
+          <ion-row class="grid-publi">
+            <ion-col size="2">
+              <ion-avatar mode="ios">
+                <img src="/assets/anonimo.png" />
+              </ion-avatar>
+            </ion-col>
+
+            <ion-col size="7">
+              <ion-card-header class="pad-top-name" mode="md">
+                <ion-card-title>ANONIMO</ion-card-title>
+                <ion-card-subtitle>Hace 5 minutos</ion-card-subtitle>
+              </ion-card-header>
+            </ion-col>
+
+            <ion-col size="1.5" >
+              <ion-button (click)="presentToast('bottom')" (click)="onClick()" fill="clear" class="ion-no-padding">
+                <ion-icon [name]=" guardado ? 'bookmark':'bookmark-outline' "  ></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="1.5">
+              <ion-button (click)="presentPopover2( $event )" fill="clear" class="ion-no-padding" color="dark">
+                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid> 
+
+        <ion-card-content>
+        <ion-list mode="md">
+          <ion-item >
+            <p>Amigos, tengan mucho cuidado al pasar por esta zona, via a unos porros tomando y fumando alli en la mañana.</p>
+          </ion-item>
+          <ion-item lines="full" class="ion-padding-bottom">
+            <ion-img src="assets/Captura.JPG"></ion-img>
+          </ion-item>
+
+          <ion-item  button (click)="presentPopover()" lines="full" class="ion-padding-bottom" [detail]="true">
+            <ion-avatar slot="start" class="send ion-no-padding">
+              <img src="/assets/yo2.png" />
+            </ion-avatar>
+            Comentar...
+          </ion-item>
+          <ion-item-divider mode="ios">
+            <ion-label> Comentarios </ion-label>
+          </ion-item-divider>
+
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-avatar slot="start" class="send">
+                <img src="/assets/yo2.png" />
+              </ion-avatar>
+              <ion-label >
+                <h2>PRAXEDES</h2>
+                <p>Hace 2 minutos</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-label class="ion-text-wrap coment">Muchas gracias bro, iba a pasar por allí cuando saliera a de la escuela, tendré que tomar otra ruta.</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-avatar slot="start" class="send">
+                <img src="/assets/anonimo.png" />
+              </ion-avatar>
+              <ion-label >
+                <h2>ANONIMO</h2>
+                <p>Hace 2 minutos</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="full">
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-label class="ion-text-wrap coment">Muchas gracias bro, iba a pasar por allí cuando saliera a de la escuela, tendré que tomar otra ruta.x2</ion-label>
+            </ion-item>
+          </ion-item-group>
+
+          <ion-item-group>
+            <ion-item lines="none">
+              <ion-avatar slot="start" class="send">
+                <img src="/assets/yo2.png" />
+              </ion-avatar>
+              <ion-label >
+                <h2>PRAXEDES</h2>
+                <p>Hace 2 minutos</p>
+              </ion-label>
+            </ion-item>
+            <ion-item >
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-label class="ion-text-wrap coment">Muchas gracias bro, iba a pasar por allí cuando saliera a de la escuela, tendré que tomar otra ruta.x3</ion-label>
+            </ion-item>
+            <ion-item lines="full" class="ion-padding-bottom">
+              <ion-avatar slot="start" class="send">
+                <ion-icon slot="start" size="large" name="add"></ion-icon>
+              </ion-avatar>
+              <ion-img src="assets/Captura.JPG"></ion-img>
+              
+            </ion-item>
+          </ion-item-group>
+        </ion-list>
+        </ion-card-content>
+      </ion-card>
+
    
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button size="large" color="secondary" href="foro/publicar">
           <ion-icon name="add" size="large"></ion-icon>
         </ion-fab-button>
       </ion-fab>
+
+      <br><br><br>
+
 </ion-content>

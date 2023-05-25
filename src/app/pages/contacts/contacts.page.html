@@ -13,11 +13,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-text class="bienvenida">
-    <h2>3/3 Contactos registrados</h2>
-  </ion-text>
 
+  <ion-icon name="people-outline" class="icono" color="dark"></ion-icon>
+<br>
   <ion-list>
+    <ion-list-header>
+      <ion-label color="primary"> <h1>Contactos registrados:</h1></ion-label>
+      <ion-note color="primary" class="ion-padding-horizontal"> <h2>3/3</h2></ion-note>
+    </ion-list-header>
     <ion-item-sliding>
       <ion-item-options side="start">
         <ion-item-option>
@@ -27,7 +30,7 @@
   
       <ion-item>
         <ion-label>Roberto</ion-label>
-        <ion-label slot="end">55-5546-8586</ion-label>
+        <ion-note slot="end">55-5546-8586</ion-note>
       </ion-item>
   
       <ion-item-options side="end">
@@ -49,7 +52,7 @@
   
       <ion-item>
         <ion-label>Bryan</ion-label>
-        <ion-label slot="end">55-5585-1565</ion-label>
+        <ion-note slot="end">55-5585-1565</ion-note>
       </ion-item>
   
       <ion-item-options side="end">
@@ -71,7 +74,7 @@
   
       <ion-item>
         <ion-label>Miguel</ion-label>
-        <ion-label slot="end">55-7894-1212</ion-label>
+        <ion-note slot="end">55-7894-1212</ion-note>
       </ion-item>
   
       <ion-item-options side="end">

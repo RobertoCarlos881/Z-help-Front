@@ -1,10 +1,9 @@
+
 .card {
     //align-items: center;
     //background-color: rgb(255, 255, 255);
     border-radius: 40px;
 }
-
-
 ion-avatar { 
     width: 60px;  
     height: 60px;  
@@ -12,6 +11,16 @@ ion-avatar {
     
 }
 
+.send{
+    margin-left: 5%;
+    margin-right: 2%;
+}
+
 .pad-top-name{
     padding-top: 3%;
+    padding-left: 10%;
+}
+
+.pad-bajo{
+    margin-top: -10%;
 }

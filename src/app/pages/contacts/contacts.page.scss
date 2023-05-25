@@ -1,7 +1,4 @@
-ion-img::part(image) {
-    width: 65%; 
-    margin: 8px auto 5px auto;
-}
+
 .bienvenida{
     text-align: center;
     color: rgb(0, 149, 255);
@@ -20,3 +17,13 @@ line-height: 27px;
     width: 70px;
     height: auto;
 }
+
+.icono {
+    width: 100px;
+    height: 100px;
+    //background-color: rgb(255, 255, 255);
+    border-radius: 65px;
+    margin: 25px auto 2px auto;
+    border: 8px solid #3880ff;
+    display: flex;
+ }

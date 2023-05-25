@@ -1,18 +1,9 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="z-help/foro" text="Regresar" mode="ios"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <ion-card class="card" mode="md">
 
-<ion-content color="primary">
-
-  <ion-card class="card">
-    
     <ion-grid fixed>
 
-      <ion-row>
+      <ion-row >
         <ion-col size="2">
           <ion-avatar mode="ios">
             <img src="/assets/yo2.png" />
@@ -29,8 +20,8 @@
       </ion-row>
     </ion-grid>
       
-        <ion-card-content>
-          <ion-list>
+        <ion-card-content class="pad-bajo">
+          <ion-list >
             <ion-item>
               <ion-button  fill="clear" color="medium">
                 <ion-icon name="images-outline" ></ion-icon>
@@ -39,7 +30,7 @@
                 <ion-icon name="location-outline"></ion-icon>
               </ion-button>
               <ion-toggle color="primary"> Anonimo </ion-toggle>
-              <ion-button slot="end" size="large" fill="clear" color="primary" class="ion-no-padding" href="z-help/foro">
+              <ion-button slot="end" size="large" fill="clear" color="primary" class="ion-no-padding send">
                 <ion-icon name="send"></ion-icon>
               </ion-button>
               
@@ -47,18 +38,16 @@
             <ion-item class="ion-align-items-center">
               <ion-textarea [counter]="true" [maxlength]="700" [autoGrow]="true" label="¿Qué quieres decir?" label-placement="floating" fill="solid" placeholder="Escríbelo...."></ion-textarea>
             </ion-item>
-
             <ion-item>
-              <ion-datetime mode="ios" color="primary">
-                <span slot="title">Fecha y hora en la que ocurrio:</span>
-              </ion-datetime>
+              <ion-datetime-button datetime="datetime"></ion-datetime-button>
             </ion-item>
           </ion-list>
         </ion-card-content>
-      
-
-    
   </ion-card>
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="datetime" mode="md"></ion-datetime>
+    </ng-template>
+  </ion-modal>
 </ion-content>
-
-

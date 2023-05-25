@@ -13,17 +13,26 @@
 
     <ion-card-content>
       <form [formGroup]="formularioRegistro">
-        <ion-item color="dark" class="casilla">
-          <ion-label position="floating">Nombre</ion-label>
+        <ion-item color="casilla" class="casilla">
+          <ion-label position="floating" color="texto">Nombre</ion-label>
           <ion-input formControlName="nombre"></ion-input>
         </ion-item>
-        <ion-item color="dark" class="casilla">
-          <ion-label position="floating">Correo electronico</ion-label>
+        <ion-item color="casilla" class="casilla">
+          <ion-label position="floating" color="texto">Correo electronico</ion-label>
           <ion-input formControlName="Correo electronico"></ion-input>
         </ion-item>
-        <ion-item color="dark" class="casilla">
-          <ion-label position="floating">Numero de celular</ion-label>
+        <ion-item color="casilla" class="casilla">
+          <ion-label position="floating" color="texto">Numero de celular</ion-label>
           <ion-input formControlName="Numero de celular"></ion-input>
+        </ion-item>
+        <ion-item color="casilla">
+          <ion-checkbox>
+            <ion-text color="texto" class="ion-text-wrap">
+              He leído y acepto los <a href="">términos y condiciones</a> 
+            </ion-text>
+          </ion-checkbox> 
+          
+        
         </ion-item>
         <br>
         
