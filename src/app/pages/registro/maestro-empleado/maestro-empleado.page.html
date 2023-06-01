@@ -16,12 +16,12 @@
         <form>
         <ion-item color="casilla" class="casilla">
           <ion-label position="floating" color="texto">Instituto</ion-label>
-          <ion-input type="password" ></ion-input>
+          <ion-input color="texto"></ion-input>
           <!--<ion-input formControlName="password" type="password" ></ion-input>-->
         </ion-item>
         <ion-item color="casilla" class="casilla">
           <ion-label position="floating" color="texto">Numero de empleado</ion-label>
-          <ion-input type="password"></ion-input>
+          <ion-input color="texto" type="number" onkeypress="return event.charCode >= 48" min="1"></ion-input>
           <!--<ion-input formControlName="confirmacionPassword" type="password"></ion-input>-->
         </ion-item>
         <br>

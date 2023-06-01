@@ -15,15 +15,15 @@
       <form [formGroup]="formularioRegistro">
         <ion-item color="casilla" class="casilla">
           <ion-label position="floating" color="texto">Nombre</ion-label>
-          <ion-input formControlName="nombre"></ion-input>
+          <ion-input formControlName="nombre" color="texto"></ion-input>
         </ion-item>
         <ion-item color="casilla" class="casilla">
           <ion-label position="floating" color="texto">Correo electronico</ion-label>
-          <ion-input formControlName="Correo electronico"></ion-input>
+          <ion-input formControlName="Correo electronico" color="texto"></ion-input>
         </ion-item>
         <ion-item color="casilla" class="casilla">
           <ion-label position="floating" color="texto">Numero de celular</ion-label>
-          <ion-input formControlName="Numero de celular"></ion-input>
+          <ion-input type="number" onkeypress="return event.charCode >= 48" min="1" formControlName="Numero de celular" color="texto"></ion-input>
         </ion-item>
         <ion-item color="casilla">
           <ion-checkbox>
