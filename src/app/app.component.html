@@ -42,56 +42,19 @@
         <ion-item class="opciones" detail>
           <ion-icon slot="start" name="construct-outline" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
-            Configuración  
+            Configuración
           </ion-text>
         </ion-item>
 
-        <ion-item button id="popover-button" class="opciones" detail>
+        <ion-item class="opciones" detail>
           <ion-icon slot="start" name="call" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
-            Telefonos de emergencia  
+            Telefonos de emergencia
           </ion-text>
         </ion-item>
-        
+
       </ion-list>
     </ion-content>
   </ion-menu>
-
-  <ion-popover trigger="popover-button" [dismissOnSelect]="true" side="top" alignment="center">
-    <ng-template>
-      <ion-content>
-        <ion-list>
-          <ion-item>
-            ¿Quien puede atender tu emergencia? 
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="primary">
-            <ion-icon size="large" slot="start" name="shield-half"></ion-icon>
-            Policía
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="danger">
-            <ion-icon size="large" slot="start" name="medkit"></ion-icon>
-            Cruz Roja
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="warning">
-            <ion-icon size="large" slot="start" name="flame-outline"></ion-icon>
-            Bomberos
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="secondary">
-            <ion-icon size="large" slot="start" name="people-circle-outline"></ion-icon>
-            Denuncia Anonima
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="tertiary">
-            <ion-icon size="large" slot="start" name="man"></ion-icon>
-            Atención Ciudadana
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="success">
-            <ion-icon size="large" slot="start" name="location-sharp"></ion-icon>
-            Locatel
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
-
   <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>
