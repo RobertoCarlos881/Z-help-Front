@@ -43,23 +43,23 @@
       <ion-button expand="block" shape="round" fill="clear" href="/">
         Volver
       </ion-button>
-      <ion-popover trigger="popover-button" [dismissOnSelect]="true" side="top" alignment="center">
-        <ng-template>
-          <ion-content>
-            <ion-list>
-              <ion-item>
-                Perteneces al instituto como: 
-              </ion-item>
-              <ion-item [button]="true" [detail]="true" color="primary" href="/registro/alumno/">Alumno</ion-item>
-              <ion-item [button]="true" [detail]="true" color="secondary" href="/registro/maestro-empleado/">Profesor</ion-item>
-              <ion-item [button]="true" [detail]="true" color="tertiary" href="/registro/maestro-empleado/">Empleado</ion-item>
-            </ion-list>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
+      
     </ion-card-content>
   </ion-card>
   
-
+  <ion-popover trigger="popover-button" [dismissOnSelect]="true" side="top" alignment="center">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item>
+            Perteneces al instituto como: 
+          </ion-item>
+          <ion-item [button]="true" [detail]="true" color="primary" href="/registro/alumno/">Alumno</ion-item>
+          <ion-item [button]="true" [detail]="true" color="secondary" href="/registro/maestro-empleado/">Profesor</ion-item>
+          <ion-item [button]="true" [detail]="true" color="tertiary" href="/registro/maestro-empleado/">Empleado</ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
   
 </ion-content>

@@ -5,7 +5,7 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'not-logged',
     pathMatch: 'full'
   },
   {
@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'registro',
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
+  },
+  {
+    path: 'not-logged',
+    loadChildren: () => import('./pages/not-logged/not-logged.module').then( m => m.NotLoggedPageModule)
   },
   
 ];

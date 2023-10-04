@@ -1,0 +1,15 @@
+.entrar{
+    width: 250px;
+    --border-radius: 15px;
+}
+
+
+
+.simple-linear {
+    --background: linear-gradient(
+        217deg,
+        rgba(202,81,96,0.41),
+        rgba(0,94,235,0.41) 70.71%
+      ), linear-gradient(127deg, rgba(202,81,96,0.41), rgba(0, 255, 0, 0) 70.71%),
+      linear-gradient(336deg, rgba(202,81,96,0.41), rgba(0, 0, 255, 0) 70.71%)
+  }

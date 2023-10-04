@@ -1,0 +1,41 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="simple-linear">
+    <ion-title mode="ios"><font face="Monaco"><h1><b>Z-Help</b></h1></font></ion-title>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+
+  <ion-fab vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button size="small" color="medium">
+      <ion-icon name="help-circle-outline" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button size="large" color="primary">
+      <ion-icon name="locate-sharp" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button size="large" color="success">
+      <ion-icon name="log-in" size="large"></ion-icon>
+    </ion-fab-button>
+
+    <ion-fab-list side="top">
+      <ion-fab-button href="registro" color="medium" class="entrar">
+        <ion-label color="dark"><h2><b>REGISTRAR</b></h2></ion-label> 
+      </ion-fab-button>
+
+      <ion-fab-button (click)="presentPopover()" color="primary" class="entrar">
+        <ion-label color="dark" ><h2><b>ENTRAR</b></h2></ion-label> 
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
+  
+  
+
+</ion-content>
+

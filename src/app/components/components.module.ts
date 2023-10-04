@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ComentarComponent } from './comentar/comentar.component';
 import { PublicacionComponent } from './publicacion/publicacion.component';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     ComentarComponent,
-    PublicacionComponent
+    PublicacionComponent,
+    LoginComponent
   ],
   exports:[
     ComentarComponent,
-    PublicacionComponent
+    PublicacionComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
