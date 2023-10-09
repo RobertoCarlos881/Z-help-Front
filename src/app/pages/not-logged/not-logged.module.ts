@@ -8,7 +8,11 @@ import { NotLoggedPageRoutingModule } from './not-logged-routing.module';
 
 import { NotLoggedPage } from './not-logged.page';
 
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     FormsModule,

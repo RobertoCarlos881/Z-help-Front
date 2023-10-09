@@ -16,8 +16,12 @@
 
 <ion-content >
 
+  <div class="mapa">
+    <capacitor-google-map #map></capacitor-google-map>
+  </div>
+
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button size="large" color="secondary">
+    <ion-fab-button  (click)="mylocation()" size="large" color="secondary">
       <ion-icon name="locate-sharp" size="large"></ion-icon>
     </ion-fab-button>
   </ion-fab>
