@@ -1,0 +1,111 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/perfil" text="Regresar" mode="ios"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-text class="bienvenida">
+    <h1>Editar mi perfil</h1>
+  </ion-text>
+
+  <ion-card class="card">
+    
+    <ion-card-content>
+      <ion-grid fixed>
+
+
+        <ion-row>
+          <ion-col size="1.5">
+            
+          </ion-col>
+          <ion-col size="9">
+            <ion-avatar mode="ios" size="large">
+              <img src="/assets/yo2.png" />
+            </ion-avatar>
+          </ion-col>
+
+          <ion-col size="1.5">
+            
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-item (click)="PopoverNombre()" lines="none" class="ion-no-padding">    
+              <ion-card-title>Jose Praxedes Dominguez Acosta <ion-icon name="create-outline" size="small" color="dark" ></ion-icon></ion-card-title>              
+            </ion-item>
+
+             <ion-item (click)="PopoverCorreo()" lines="none" class="ion-no-padding">
+              <ion-card-subtitle>josepraxedes3@gmail.com<ion-icon name="create-outline" size="small" color="dark" ></ion-icon></ion-card-subtitle>
+             </ion-item>
+            
+                           
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-item (click)="PopoverNumero()" lines="none" class="ion-no-padding">
+              <ion-label>
+                <ion-card-subtitle>Numero:</ion-card-subtitle>
+                <ion-card-title>55 2211 4596<ion-icon name="create-outline" size="small" color="dark" ></ion-icon></ion-card-title>
+              </ion-label>
+              
+            </ion-item>
+            
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-item (click)="PopoverEscuela()" lines="none" class="ion-no-padding">
+              <ion-label>
+                <ion-card-subtitle>Escuela:</ion-card-subtitle>
+                <ion-card-title>ESCOM<ion-icon name="create-outline" size="small" color="dark" ></ion-icon></ion-card-title>
+              </ion-label>
+            </ion-item>
+            
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-item (click)="PopoverBoleta()" lines="none" class="ion-no-padding">
+              <ion-label>
+                <ion-card-subtitle>Boleta:</ion-card-subtitle>
+                <ion-card-title>2019026385<ion-icon name="create-outline" size="small" color="dark" ></ion-icon></ion-card-title>
+              </ion-label>
+            </ion-item>
+            
+            <br><br><br>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="2.5">
+            
+          </ion-col>
+
+          <ion-col >
+            <ion-button href="/perfil" >
+              <ion-text>
+                <h1>GUARDAR</h1>
+              </ion-text>
+            </ion-button>
+            
+          </ion-col>
+
+          
+        </ion-row>
+        
+        
+      </ion-grid>
+      
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+
