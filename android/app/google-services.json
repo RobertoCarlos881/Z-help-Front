@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "647357451764",
+    "project_id": "z-help-v2",
+    "storage_bucket": "z-help-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:647357451764:android:365d5a598cf4d820f93da1",
+        "android_client_info": {
+          "package_name": "com.Z_HELP.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4tPyNPgPyGZjo1oWzCS3GZZ152lmohfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
