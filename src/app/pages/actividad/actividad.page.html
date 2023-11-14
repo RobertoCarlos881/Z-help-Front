@@ -28,17 +28,17 @@
     <ion-item-divider>
       <ion-label>hoy</ion-label>
     </ion-item-divider>
-    <ion-item detail routerLink="/z-help/actividad/sos">
+    <ion-item detail routerLink="/z-help/actividad/sos" *ngFor="let push of pushservice.notis">
       <ion-icon color="danger" name="radio-sharp" slot="start" size="large"></ion-icon>
       <ion-label>
-        <h2>Boton S.O.S</h2>
-        <p>Nueva Industrial Vallejo, 07700 Ciudad de México, CDMX</p>
+        <h2>{{ push.title }}</h2>
+        <p>{{ push.body }}</p>
       </ion-label>
       <ion-label slot="end">
-        20/05/2023
+        12/11/2023
       </ion-label>
     </ion-item>
-
+<!--
     <ion-item-divider>
       <ion-label>ayer</ion-label>
     </ion-item-divider>
@@ -51,6 +51,6 @@
       <ion-label slot="end">
         20/05/2023
       </ion-label>
-    </ion-item>
+    </ion-item> -->
   </ion-list>
 </ion-content>
