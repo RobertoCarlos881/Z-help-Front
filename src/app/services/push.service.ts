@@ -9,16 +9,7 @@ import { OSNotificationPayload } from '@awesome-cordova-plugins/onesignal/ngx';
   providedIn: 'root'
 })
 export class PushService {
-
-  /*notis: any[] = [
-    {
-      title: 'titulo prueba',
-      body: 'cuerpo prueba',
-      date: new Date()
-    }
-  ];*/
   notis: any[] = [];
-
   pushListener = new EventEmitter<OSNotification>();
 
   constructor(private storage: Storage) {
@@ -39,28 +30,24 @@ export class PushService {
 
   configInicial(){
     OneSignal.init("7370f7f8-d4df-4998-a645-9a9992cd89ab");
-    let recibido = async function(this: PushService, event:OSNotificationWillDisplayEvent) {
-      //await this.cargarMensajes();
-      //let notiData:OSNotification =  event.getNotification();
+    let recibido = async (event:OSNotificationWillDisplayEvent) => {
+      await this.cargarMensajes();
+      //let notiDataOS:OSNotification =  event.getNotification();
       let notiData =  JSON.stringify(event);
       //let notiData = JSON.parse(notiDataStr);
       //let data: any = notiData.rawPayload
 
-     /* const existePush = this.notis.find( mensaje => mensaje.androidNotificationId === notiData.androidNotificationId );
-
-    if ( existePush ) {
-      return;
-    }*/
       console.log('holaaaaaa', notiData);
-      /*this.notis.push({
-        title: notiData1.title,
-        body: notiData1.body,
-        date: new Date()
-      });*/
-      this.notis.unshift(notiData);
+      this.notis.unshift(JSON.parse(notiData));
       this.pushListener.emit( event.getNotification() );
-     // await this.guardarMensajes();
-     console.log('holaaaaaaaaa------', this.notis)
+      this.guardarMensajes();
+      //console.log('holaaaaaaaaa------', this.notis);
+      console.log('holaaaaaaaaa------');
+this.notis.forEach((noti) => {
+    console.log(noti.notification.title);
+});
+
+     
     };
 
     OneSignal.Notifications.addEventListener("foregroundWillDisplay", recibido);

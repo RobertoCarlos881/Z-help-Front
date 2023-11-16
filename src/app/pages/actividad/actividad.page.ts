@@ -19,13 +19,13 @@ export class ActividadPage implements OnInit {
       this.applicationRef.tick();
     });
   }
-/*
+
   async ionViewWillEnter() {
 
     console.log('Will Enter - Cargar mensajes');
 
     this.mensajes = await this.pushservice.getMensajes();
 
-  }*/
+  }
 
 }

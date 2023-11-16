@@ -28,14 +28,14 @@
     <ion-item-divider>
       <ion-label>hoy</ion-label>
     </ion-item-divider>
-    <ion-item detail routerLink="/z-help/actividad/sos" *ngFor="let push of pushservice.notis">
+    <ion-item detail routerLink="/z-help/actividad/sos" *ngFor="let push of mensajes">
       <ion-icon color="danger" name="radio-sharp" slot="start" size="large"></ion-icon>
       <ion-label>
-        <h2>{{ push.title }}</h2>
-        <p>{{ push.body }}</p>
+        <h2>{{ push.notification.title }}</h2>
+        <p>{{ push.notification.body }}</p>
       </ion-label>
       <ion-label slot="end">
-        12/11/2023
+        15/11/2023
       </ion-label>
     </ion-item>
 <!--
