@@ -24,33 +24,38 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Desliza para actualizar"
+      refreshingSpinner="circles"
+      refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
-    <ion-item-divider>
-      <ion-label>hoy</ion-label>
-    </ion-item-divider>
-    <ion-item detail routerLink="/z-help/actividad/sos" *ngFor="let push of mensajes">
-      <ion-icon color="danger" name="radio-sharp" slot="start" size="large"></ion-icon>
+    <ion-item detail (click)="navigateToDetail(push)" *ngFor="let push of mensajes">
+      <ion-icon color="{{push.notification.additionalData.coloricon}}" name="{{push.notification.additionalData.icon}}"  slot="start" size="large"></ion-icon>
       <ion-label>
         <h2>{{ push.notification.title }}</h2>
         <p>{{ push.notification.body }}</p>
       </ion-label>
       <ion-label slot="end">
-        15/11/2023
+        {{ push.notification.date | date: 'dd/MM/yyyy'}}
+        
       </ion-label>
     </ion-item>
-<!--
-    <ion-item-divider>
-      <ion-label>ayer</ion-label>
-    </ion-item-divider>
-    <ion-item detail routerLink="/z-help/actividad/zone" >
+      <!--
       <ion-icon color="warning" name="warning-outline" slot="start" size="large"></ion-icon>
-      <ion-label>
-        <h2>Actualización de zona de riesgo </h2>
-        <p>Av Instituto Politécnico Nacional, Nueva Industrial Vallejo, Gustavo A. Madero, 07738 Ciudad de México, CDMX</p>
-      </ion-label>
-      <ion-label slot="end">
-        20/05/2023
-      </ion-label>
-    </ion-item> -->
+      <ion-icon color="warning" name="warning-outline" slot="start" size="large"></ion-icon>
+      -->
+
+    
   </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="borrarMensajes()" color="danger" size="large">
+      <ion-icon name="trash" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -6,29 +6,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
   <br>
   <ion-card class="card">
     <ion-list>
     <ion-item>
-      <ion-icon color="danger" name="radio-sharp" class="icono"></ion-icon>
+      <ion-icon color="{{push.notification.additionalData.coloricon}}" name="{{push.notification.additionalData.icon}}" class="icono"></ion-icon>
       <ion-card-header>
-        <ion-card-title>Boton S.O.S</ion-card-title>
+        <ion-card-title>{{ push.notification?.title }}</ion-card-title>
       </ion-card-header>
     </ion-item>
     
     <ion-card-content>
       <ion-item>
         <ion-text>
-          <p>Nueva Industrial Vallejo, 07700 Ciudad de México, CDMX</p>
+          <p>{{ push.notification.body }}</p>
         </ion-text>
       </ion-item>
       <ion-item>
         <ion-img src="assets/Captura.JPG"></ion-img>
       </ion-item>
       <ion-item>
-        <ion-label slot="start">3:25 pm</ion-label>
-        <ion-label slot="end">20/05/2023</ion-label>
+        <ion-label slot="start">{{ push.notification.date | date: 'HH:mm' }}</ion-label>
+        <ion-label slot="end">{{ push.notification.date | date: 'dd/MM/yyyy'}}</ion-label>
       </ion-item>
     </ion-card-content>
     
