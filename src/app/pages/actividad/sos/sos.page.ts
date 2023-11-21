@@ -10,9 +10,7 @@ export class SOSPage implements OnInit {
 
   push: any;
 
-  constructor(private route: ActivatedRoute) {
-    //this.push = {};
-   }
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     console.log('------hola');
@@ -22,21 +20,7 @@ export class SOSPage implements OnInit {
         this.push = JSON.parse(params['data']);
         
       }
-      //console.log(this.push)
-    });
-    /*if (this.push) {
-      console.log('notificacion info:',JSON.stringify(this.push));
-    }
-    this.route.params.subscribe(params => {
-      this.push = params['push'];
-      console.log('notificacion info:',this.push);
-    });*/
-    //console.log('notificacion info:',JSON.stringify(this.push));
-       
-    //this.push.forEach((noti) => {
-      //console.log(noti.notification.title);
-    //});
-   
+    });   
   }
 
 }

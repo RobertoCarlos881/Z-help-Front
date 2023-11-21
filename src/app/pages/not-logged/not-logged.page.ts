@@ -12,9 +12,9 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class NotLoggedPage implements OnInit {
 
-  @Input() position = {
-    lat: 19.50669906783151, //19.50669906783151, -99.14546198302546
-    lng: -99.14546198302546,
+  position = {
+    lat: 19.504505115097537, //19.504505115097537, -99.14692399898082
+    lng: -99.14692399898082,
   }
 
   @ViewChild('map')
@@ -22,6 +22,8 @@ export class NotLoggedPage implements OnInit {
   //map: GoogleMap | undefined;
   map: any;
   marker: any;
+  watchId: any;
+  circle: any;
 
   constructor(
     private popoverCtrl: PopoverController
@@ -31,52 +33,51 @@ export class NotLoggedPage implements OnInit {
     this.createMap();
 
   }
+  ionViewDidLeave(){
+    if(this.watchId) Geolocation.clearWatch({ id: this.watchId });
+  }
 
   async createMap() {
-
     const position = this.position;
-
     let latlng = new google.maps.LatLng(position.lat, position.lng);
-
     let mapOptions = {
       center: latlng,
-      zoom: 15, // The initial zoom level to be rendered by the map
+      zoom: 18, // The initial zoom level to be rendered by the map
       disableDefaultUI: true,
       clickableIcons: true
     };
 
     this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
 
-    this.addMarker(position);
-
-    /* this.map = await GoogleMap.create({
-      id: 'my-map', // Unique identifier for this map instance
-      element: this.mapRef.nativeElement, // reference to the capacitor-google-map element
-      apiKey: environment.mapskey, // Your Google Maps API Key
-      config: {
-    center: {
-      // The initial position to be rendered by the map
-      lat: latlng.lat, //19.50669906783151, -99.14546198302546
-      lng: latlng.lng,
-    },
-    zoom: 15, // The initial zoom level to be rendered by the map
-    disableDefaultUI: true,
-    clickableIcons: true
-  },
-    })*/
+    //this.addMarker(position);
+    google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
+      this.addMarker(position);
+    });
+    
   }
 
   addMarker(position: any): void{
-    //let latlng = new google.maps.LatLng(position.lat, position.lng);
-
-    //this.marker.setPosition(latlng);
     this.map.panTo(position);
-   // this.positionSet = position;
-    
-
+    this.map.setZoom(18);
+    if (this.marker) {
+      this.marker.setMap(null); // Elimina el marcador anterior
+    }
+    this.marker = new google.maps.Marker({
+      position: position,
+      map: this.map,
+      icon: {
+        url: '/assets/logo_perfil.png', // Cambia esto por la ruta a tu imagen
+        scaledSize: new google.maps.Size(30, 33), // Cambia esto por el tamaño de tu imagen
+      },
+    });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const position = await this.getCurrentPosition();
+  this.position = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude,
+  };
   }
 
   async presentPopover() {
@@ -90,19 +91,20 @@ export class NotLoggedPage implements OnInit {
   }
 
   async mylocation() {
-    Geolocation.getCurrentPosition().then((res) => {
-
-      console.log('mylocation() -> get', res)
-
-      const position = {
-        lat: res.coords.latitude,
-        lng: res.coords.longitude,
-        
+    this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
+      if (position) {
+        const newPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }
+        this.addMarker(newPosition);
       }
-      this.addMarker(position);
+    });
+  }
 
-
-    })
+  async getCurrentPosition() {
+    const coordinates = await Geolocation.getCurrentPosition();
+    return coordinates;
   }
 
 }
