@@ -1,6 +1,19 @@
-<ion-content>
-  <ion-list>
-    <ion-item [button]="true" [detail]="true" color="success">Editar</ion-item>
-    <ion-item [button]="true" [detail]="true" color="danger">Borrar</ion-item>
+<ion-content >
+
+    <ion-list >
+    <ion-item color="light" class="opciones" [button]="true" [detail]="false" >
+      <ion-icon color="success" name="create-outline" slot="start"></ion-icon>
+      <ion-text color="success" slot="start">
+        Editar
+      </ion-text>
+    </ion-item>
+    <ion-item color="light" class="opciones" [button]="true" [detail]="false" >
+      <ion-icon color="danger" name="close-circle-outline" slot="start"></ion-icon>
+      <ion-text color="danger" slot="start">
+        Eliminar
+      </ion-text>
+    </ion-item>
   </ion-list>
+  
+  
 </ion-content>

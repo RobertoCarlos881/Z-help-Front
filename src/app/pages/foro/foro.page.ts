@@ -27,17 +27,21 @@ export class ForoPage implements OnInit {
       component: PublicacionComponent,
       event: ev,
       side:"left",
-      alignment:"start",
+      alignment:"center",
+      mode: 'ios',
+      size: 'auto',
       translucent: false
     });
   
     await popover.present();
+
   }
 
   async presentPopover() {
     const popover = await this.popoverCtrl.create({
       component: ComentarComponent,
       cssClass: 'contact-popover',
+      mode: 'ios',
       translucent: false
     });
   
