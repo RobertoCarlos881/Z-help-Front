@@ -4,7 +4,18 @@
     border-radius: 40px;
 }
 
+.mapa-item {
+   //width: 400px;
+   height: 300px;
+    padding: 0;
+    margin-right: -8%;
+    display: flex;
+}
 
+.mapa {
+    width: 100%;
+    height: 300px;
+}
 
 .icono {
     width: 50px;

@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { PushService } from './services/push.service';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+//import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class AppComponent{
   constructor(
     private pushService: PushService,
     private platform: Platform,
-    private storage: Storage
+    private storage: Storage,
+    //private screenOrientation: ScreenOrientation
 
   ) {
-    
+    //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    //window.screen.orientation.lock('portrait');     
     this.OneSignalInit();
   }
 /*

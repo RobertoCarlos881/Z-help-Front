@@ -23,8 +23,10 @@
           <p>{{ push.notification.body }}</p>
         </ion-text>
       </ion-item>
-      <ion-item>
-        <ion-img src="assets/Captura.JPG"></ion-img>
+      <ion-item class="mapa-item">
+        
+          <capacitor-google-map class="mapa" #map></capacitor-google-map>
+        
       </ion-item>
       <ion-item>
         <ion-label slot="start">{{ push.notification.date | date: 'HH:mm' }}</ion-label>

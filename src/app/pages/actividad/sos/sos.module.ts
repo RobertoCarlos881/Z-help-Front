@@ -7,8 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { SOSPageRoutingModule } from './sos-routing.module';
 
 import { SOSPage } from './sos.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     FormsModule,

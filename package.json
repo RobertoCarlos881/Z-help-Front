@@ -33,6 +33,7 @@
     "@ionic/angular": "^7.0.0",
     "@ionic/storage": "^4.0.0",
     "@ionic/storage-angular": "^4.0.0",
+    "cordova-plugin-screen-orientation": "^3.0.4",
     "ionicons": "^7.0.0",
     "onesignal-cordova-plugin": "^5.0.0-beta-02",
     "rxjs": "~7.8.0",

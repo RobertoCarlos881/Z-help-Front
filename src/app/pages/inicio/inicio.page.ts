@@ -9,7 +9,7 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class InicioPage implements OnInit {
 
-  @Input() position = {
+  position = {
     lat: 19.504505115097537, //19.504505115097537, -99.14692399898082
     lng: -99.14692399898082,
   }
