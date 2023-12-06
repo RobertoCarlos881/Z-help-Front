@@ -7,8 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { PublicarPageRoutingModule } from './publicar-routing.module';
 
 import { PublicarPage } from './publicar.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     CommonModule,
     FormsModule,

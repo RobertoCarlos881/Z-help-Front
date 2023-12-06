@@ -9,9 +9,11 @@ import { EscuelaComponent } from './edit/escuela/escuela.component';
 import { CorreoComponent } from './edit/correo/correo.component';
 import { BoletaComponent } from './edit/boleta/boleta.component';
 import { NumeroComponent } from './edit/numero/numero.component';
-
+import { UbicacionComponent } from './publicacion/ubicacion/ubicacion.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     ComentarComponent,
     NombreComponent,
@@ -20,7 +22,8 @@ import { NumeroComponent } from './edit/numero/numero.component';
     BoletaComponent,
     NumeroComponent,
     PublicacionComponent,
-    LoginComponent
+    LoginComponent,
+    UbicacionComponent
   ],
   exports:[
     ComentarComponent,
@@ -30,7 +33,8 @@ import { NumeroComponent } from './edit/numero/numero.component';
     BoletaComponent,
     NumeroComponent,
     PublicacionComponent,
-    LoginComponent
+    LoginComponent,
+    UbicacionComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="primary">
+<ion-content>
 
   <ion-card class="card">
 
@@ -35,7 +35,7 @@
               <ion-button  fill="clear" color="medium">
                 <ion-icon name="images-outline" ></ion-icon>
               </ion-button>
-              <ion-button  fill="clear" color="medium">
+              <ion-button (click)="presentPopover()" fill="clear" color="medium">
                 <ion-icon name="location-outline"></ion-icon>
               </ion-button>
               <ion-toggle color="primary"> Anonimo </ion-toggle>
@@ -47,18 +47,18 @@
             <ion-item class="ion-align-items-center">
               <ion-textarea [counter]="true" [maxlength]="300" [autoGrow]="true" label="¿Qué quieres decir?" label-placement="floating" fill="solid" placeholder="Escríbelo...."></ion-textarea>
             </ion-item>
-
             <ion-item>
               <ion-datetime mode="ios" color="primary">
                 <span slot="title">Fecha y hora en la que ocurrio:</span>
               </ion-datetime>
             </ion-item>
+            
           </ion-list>
         </ion-card-content>
 
 
 
   </ion-card>
+
+  
 </ion-content>
-
-

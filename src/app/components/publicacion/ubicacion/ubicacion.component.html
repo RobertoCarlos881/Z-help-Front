@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons  mode="ios" slot="start">
+      <ion-button (click)="cerrarPopover()">Regresar</ion-button>
+    </ion-buttons>
+
+    <ion-title mode="ios">Indique una ubicacion:</ion-title>  
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="mapa">
+    <capacitor-google-map class="mapa2" #map></capacitor-google-map>
+    <img src="/assets/logo_Z.png" class="marcador-centro" />
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="primary" class="zona" (click)="marcarUbicacion()">
+      Marcar ubicacion
+    </ion-fab-button>
+  </ion-fab>
+  
+</ion-content>
