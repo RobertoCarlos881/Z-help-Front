@@ -35,3 +35,10 @@
 .ion-color-texto {
     --ion-color-base: #000000;
 }
+
+.toast-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }

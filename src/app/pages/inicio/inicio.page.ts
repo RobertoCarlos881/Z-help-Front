@@ -72,12 +72,18 @@ export class InicioPage implements OnInit {
   }
 
   async mylocation() {
+    // Cancela la suscripción existente si existe
+  if (this.watchId) {
+    await Geolocation.clearWatch({ id: this.watchId });
+  }
     this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
       if (position) {
         const newPosition = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
+        
+      console.log('ubicación:', newPosition);
         this.addMarker(newPosition);
       }
     });

@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ZHelpPageRoutingModule } from './z-help-routing.module';
 
 import { ZHelpPage } from './z-help.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { ZHelpPage } from './z-help.page';
     IonicModule,
     ZHelpPageRoutingModule
   ],
-  declarations: [ZHelpPage]
+  declarations: [ZHelpPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ZHelpPageModule {}
