@@ -24,6 +24,7 @@ export class NotLoggedPage implements OnInit {
   marker: any;
   watchId: any;
   circle: any;
+  newPosition: any;
 
   constructor(
     private popoverCtrl: PopoverController
@@ -38,7 +39,7 @@ export class NotLoggedPage implements OnInit {
   }
 
   async createMap() {
-    const position = this.position;
+    const position = this.newPosition;
     let latlng = new google.maps.LatLng(position.lat, position.lng);
     let mapOptions = {
       center: latlng,
@@ -74,10 +75,24 @@ export class NotLoggedPage implements OnInit {
 
   async ngOnInit() {
     const position = await this.getCurrentPosition();
-  this.position = {
+    this.newPosition = {
     lat: position.coords.latitude,
     lng: position.coords.longitude,
   };
+
+  
+   // Inicia el seguimiento continuo de la ubicación del usuario
+   this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
+    if (position) {
+      this.newPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      }
+      
+      console.log('ubicación:', this.newPosition);
+      this.addMarker(this.newPosition);
+    }
+  });
   }
 
   async presentPopover() {
@@ -91,15 +106,8 @@ export class NotLoggedPage implements OnInit {
   }
 
   async mylocation() {
-    this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
-      if (position) {
-        const newPosition = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        }
-        this.addMarker(newPosition);
-      }
-    });
+    console.log('ubicación------------:', this.newPosition);
+  this.addMarker(this.newPosition);
   }
 
   async getCurrentPosition() {
