@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuController, ToastController } from '@ionic/angular';
-import { Geolocation } from '@capacitor/geolocation';
+//import { Geolocation } from '@capacitor/geolocation';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-z-help',
@@ -8,19 +9,28 @@ import { Geolocation } from '@capacitor/geolocation';
   styleUrls: ['./z-help.page.scss'],
 })
 export class ZHelpPage implements OnInit {
-  ubicaboton: any;
-  watchId: any;
+  //ubicaboton: any;
+  //watchId: any;
+  private storage: Storage | null = null;
 
   constructor(private menu: MenuController, 
-              private geolocation: Geolocation,
-              private toastController: ToastController) { }
+              //private geolocation: Geolocation,
+              private toastController: ToastController,
+              private storageService: Storage) {
+    this.init();
+  }
+            
+  async init() {
+    const storage = await this.storageService.create();
+    this.storage = storage;
+  }
 
   ngOnInit() {
   }
 
-  ionViewDidLeave(){
+  /*ionViewDidLeave(){
     if(this.watchId) Geolocation.clearWatch({ id: this.watchId });
-  }
+  }*/
 
   mostrarMenu() {
     this.menu.enable(true, 'MENU');
@@ -30,12 +40,21 @@ export class ZHelpPage implements OnInit {
   async BotonSOS() {
     this.presentToast();
 
-  const position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
-  const newPosition = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude,
-  }
-  console.log('ubicación:', newPosition);
+    // Obtiene la ubicación actual del almacenamiento
+    const currentPosition = await this.storage?.get('ubicacion');
+    console.log('ubicación SOS:', currentPosition.actual);
+
+    // Obtiene la lista de ubicaciones de 'puntoSOS' del almacenamiento
+    let puntoSOS = await this.storage?.get('puntoSOS');
+    if (!puntoSOS) {
+      puntoSOS = [];
+    }
+
+    // Añade la ubicación actual a la lista de 'puntoSOS'
+    puntoSOS.push(currentPosition.actual);
+
+    // Guarda la lista actualizada de 'puntoSOS' en el almacenamiento
+    await this.storage?.set('puntoSOS', puntoSOS);
   }
   
   

@@ -21,7 +21,10 @@
   </div>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button  (click)="mylocation()" size="large" color="secondary">
+    <ion-fab-button class="refresh-button" href="z-help/inicio" size="large" color="primary">
+      <ion-icon name="refresh-outline" size="large"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="mylocation()" size="large" color="secondary">
       <ion-icon name="locate-sharp" size="large"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -32,7 +35,7 @@
     </ion-fab-button>
 
     <ion-fab-list side="end">
-      <ion-fab-button color="primary" color="warning" class="rep-zona">
+      <ion-fab-button (click)="BotonREP()" color="primary" color="warning" class="rep-zona">
         Reportar Zona
       </ion-fab-button>
     </ion-fab-list>

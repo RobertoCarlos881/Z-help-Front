@@ -4,6 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { environment } from 'src/environments/environment';
 import { Geolocation } from '@capacitor/geolocation';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-not-logged',
@@ -12,10 +13,10 @@ import { Geolocation } from '@capacitor/geolocation';
 })
 export class NotLoggedPage implements OnInit {
 
-  position = {
+  /*position = {
     lat: 19.504505115097537, //19.504505115097537, -99.14692399898082
     lng: -99.14692399898082,
-  }
+  }*/
 
   @ViewChild('map')
   mapRef!: ElementRef;
@@ -25,10 +26,36 @@ export class NotLoggedPage implements OnInit {
   watchId: any;
   circle: any;
   newPosition: any;
+  private storage: Storage | null = null;
 
   constructor(
-    private popoverCtrl: PopoverController
-  ) { }
+    private popoverCtrl: PopoverController,
+    private storageService: Storage
+  ) {
+    this.init();
+   }
+
+   
+  async init() {
+    const storage = await this.storageService.create();
+    this.storage = storage;
+  }
+
+  async ngOnInit() {
+    // Inicia el seguimiento continuo
+this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, err) => {
+if (position) {
+  this.newPosition = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude,
+  }
+  console.log('ubicación actualizada:', this.newPosition);
+  this.addMarker(this.newPosition);
+  // Guarda la ubicación en el almacenamiento local
+  await this.storage?.set('ubicacion', { actual: this.newPosition });
+  }
+});
+}
 
   ionViewDidEnter(){
     this.createMap();
@@ -39,8 +66,25 @@ export class NotLoggedPage implements OnInit {
   }
 
   async createMap() {
-    const position = this.newPosition;
-    let latlng = new google.maps.LatLng(position.lat, position.lng);
+      // Intenta obtener la ubicación del almacenamiento
+  let position = await this.storage?.get('ubicacion');
+  console.log("storage:", position);
+  // Si no hay una ubicación guardada, obtén la ubicación actual
+  if (!position.actual) {
+    position = await this.getCurrentPosition();
+    console.log("ubicacion actual no encotrada en el storage");
+    this.newPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    };
+  }else{
+    console.log("ubicacion actual encotrada en el storage");
+    this.newPosition = {
+      lat: position.actual.lat,
+      lng: position.actual.lng,
+    };
+  }
+    let latlng = new google.maps.LatLng(this.newPosition.lat, this.newPosition.lng);
     let mapOptions = {
       center: latlng,
       zoom: 18, // The initial zoom level to be rendered by the map
@@ -49,12 +93,47 @@ export class NotLoggedPage implements OnInit {
     };
 
     this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
-
-    //this.addMarker(position);
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       this.addMarker(position);
     });
     
+  // Obtiene los puntos de 'puntoSOS' y 'puntoREP' del almacenamiento
+  const puntoSOS = await this.storage?.get('puntoSOS');
+  const puntoREP = await this.storage?.get('puntoREP');
+
+  console.log('ubicaciones rep:', puntoREP);
+  console.log('ubicaciones SOS:', puntoSOS);
+  // Dibuja círculos en las ubicaciones de 'puntoSOS'
+  if (puntoSOS) {
+    for (const point of puntoSOS) {
+      new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: this.map,
+        center: point,
+        radius: 15,
+        });
+      }
+    }
+
+  // Dibuja círculos en las ubicaciones de 'puntoREP'
+  if (puntoREP) {
+    for (const point of puntoREP) {
+      new google.maps.Circle({
+        strokeColor: '#FFFF00',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FFFF00',
+        fillOpacity: 0.35,
+        map: this.map,
+        center: point,
+        radius: 15,
+        });
+      }
+    }
   }
 
   addMarker(position: any): void{
@@ -73,27 +152,7 @@ export class NotLoggedPage implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    const position = await this.getCurrentPosition();
-    this.newPosition = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude,
-  };
-
-  
-   // Inicia el seguimiento continuo de la ubicación del usuario
-   this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
-    if (position) {
-      this.newPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }
-      
-      console.log('ubicación:', this.newPosition);
-      this.addMarker(this.newPosition);
-    }
-  });
-  }
+ 
 
   async presentPopover() {
     const popover = await this.popoverCtrl.create({
