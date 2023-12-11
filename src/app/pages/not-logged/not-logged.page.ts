@@ -13,9 +13,9 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class NotLoggedPage implements OnInit {
 
-  /*position = {
-    lat: 19.504505115097537, //19.504505115097537, -99.14692399898082
-    lng: -99.14692399898082,
+  /*positionzaca = {
+    lat: 19.504391, //19.504505115097537, -99.14692399898082 ciclo:19.504391, -99.142385
+    lng: -99.142385,
   }*/
 
   @ViewChild('map')
@@ -96,7 +96,16 @@ if (position) {
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       this.addMarker(position);
     });
-    
+    /*new google.maps.Circle({
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: this.map,
+      center: this.positionzaca,
+      radius: 30,
+      });*/
   // Obtiene los puntos de 'puntoSOS' y 'puntoREP' del almacenamiento
   const puntoSOS = await this.storage?.get('puntoSOS');
   const puntoREP = await this.storage?.get('puntoREP');
@@ -114,7 +123,7 @@ if (position) {
         fillOpacity: 0.35,
         map: this.map,
         center: point,
-        radius: 15,
+        radius: 30,
         });
       }
     }
@@ -130,7 +139,7 @@ if (position) {
         fillOpacity: 0.35,
         map: this.map,
         center: point,
-        radius: 15,
+        radius: 30,
         });
       }
     }
