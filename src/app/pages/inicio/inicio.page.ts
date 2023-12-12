@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { Storage } from '@ionic/storage-angular';
 import { ToastController } from '@ionic/angular';
+import { PushService } from 'src/app/services/push.service';
 
 interface Zona {
   [key: string]: { lat: number, lng: number }[];
@@ -154,7 +155,9 @@ export class InicioPage implements OnInit {
   };
 
   constructor(private toastController: ToastController, 
-              private storageService: Storage) {
+              private storageService: Storage,
+              public pushservice: PushService
+              ) {
     this.init();
    }
 
@@ -196,7 +199,7 @@ export class InicioPage implements OnInit {
   let position = await this.storage?.get('ubicacion');
   console.log("storage:", position);
   // Si no hay una ubicación guardada, obtén la ubicación actual
-  if (!position.actual) {
+  if (!position) {
     position = await this.getCurrentPosition();
     console.log("ubicacion actual no encotrada en el storage");
     this.newPosition = {
@@ -295,9 +298,12 @@ export class InicioPage implements OnInit {
     /*this.newPosition = {
       lat:19.504505115097537, //19.504505115097537, -99.14692399898082 ciclo:19.504391, -99.142385
       lng: -99.14692399898082,
-    };
-    this.verificarPuntos();
-    this.verificarZona();*/
+    };*/
+    //this.verificarPuntos();
+    //this.verificarZona();
+    //await this.pushservice.enviarNotificacion('Has entrado a una zona reportada', 'Cuerpo de prueba', 'warning-outline', 'warning', this.zonas["ESCOM"]);
+  
+    //await this.pushservice.enviarNotificacion('Has entrado a una zona reportada', 'Cuerpo de prueba', 'warning-outline', 'warning', this.newPosition);
   console.log('ubicación------------:', this.newPosition);
   this.addMarker(this.newPosition);
   }
@@ -349,6 +355,7 @@ export class InicioPage implements OnInit {
         if (this.ultimaZona !== zona) {
           console.log(`Has entrado en la zona ${zona}`);
           this.ultimaZona = zona;
+          this.pushservice.enviarNotificacion(`Has entrado a ${zona}`, 'Cuerpo de prueba', 'warning-outline', 'warning', coordenadas);
         }
         return;
       }else{
@@ -356,9 +363,7 @@ export class InicioPage implements OnInit {
           this.ultimaZona = null; // Si el usuario sale de la zona, restablece ultimaZona a null
         }
       }
-    }
-    
-    
+    }    
   }
 
   async verificarPuntos() {
@@ -373,6 +378,17 @@ export class InicioPage implements OnInit {
           if (this.ultimoPuntoSOS.lat !== puntoSOS.lat && this.ultimoPuntoSOS.lng !== puntoSOS.lng){
             console.log('Has entrado en un punto de SOS');
           this.ultimoPuntoSOS = puntoSOS;
+          let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${puntoSOS.lat},${puntoSOS.lng}&key=AIzaSyD4tPyNPgPyGZjo1oWzCS3GZZ152lmohfs`;
+            // Realiza la solicitud
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // La dirección se encuentra en el primer resultado, en el campo 'formatted_address'
+                let direccion = data.results[0].formatted_address;
+                console.log(direccion);
+                this.pushservice.enviarNotificacion('Has entrado a una zona reportada', direccion, 'radio-sharp', 'danger', puntoSOS);
+              })
+              .catch(error => console.error(error));
           return;
           }
         }else{
@@ -385,7 +401,7 @@ export class InicioPage implements OnInit {
   
     // Verifica los puntos de 'puntoREP'
     let puntosREP = await this.storage?.get('puntoREP');
-    if (puntosREP) {;
+    if (puntosREP) {
       for (const puntoREP of puntosREP) {
         const distancia = google.maps.geometry.spherical.computeDistanceBetween(punto, new google.maps.LatLng(puntoREP.lat, puntoREP.lng));
         console.log(distancia);
@@ -395,6 +411,21 @@ export class InicioPage implements OnInit {
             console.log( puntoREP);
             console.log('Has entrado en un punto de REP');
             this.ultimoPuntoREP = puntoREP;
+
+            let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${puntoREP.lat},${puntoREP.lng}&key=AIzaSyD4tPyNPgPyGZjo1oWzCS3GZZ152lmohfs`;
+            // Realiza la solicitud
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // La dirección se encuentra en el primer resultado, en el campo 'formatted_address'
+                let direccion = data.results[0].formatted_address;
+                console.log(direccion);
+                this.pushservice.enviarNotificacion('Has entrado a una zona reportada', direccion, 'warning-outline', 'warning', puntoREP);
+              })
+              .catch(error => console.error(error));
+
+            //await this.pushservice.enviarNotificacion('Has entrado a una zona reportada', 'Cuerpo de prueba', 'nombre_del_icono', 'color_del_icono');
+            
             return;
           }
         }else{

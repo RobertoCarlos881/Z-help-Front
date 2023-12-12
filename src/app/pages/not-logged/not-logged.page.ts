@@ -70,7 +70,7 @@ if (position) {
   let position = await this.storage?.get('ubicacion');
   console.log("storage:", position);
   // Si no hay una ubicación guardada, obtén la ubicación actual
-  if (!position.actual) {
+  if (!position) {
     position = await this.getCurrentPosition();
     console.log("ubicacion actual no encotrada en el storage");
     this.newPosition = {
