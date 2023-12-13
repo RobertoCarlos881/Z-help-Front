@@ -93,8 +93,9 @@ if (position) {
     };
 
     this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
+    //this.addMarker(this.newPosition);
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
-      this.addMarker(position);
+      this.addMarker(this.newPosition);
     });
     /*new google.maps.Circle({
       strokeColor: '#FF0000',

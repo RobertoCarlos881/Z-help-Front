@@ -3,6 +3,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { Storage } from '@ionic/storage-angular';
 import { ToastController } from '@ionic/angular';
 import { PushService } from 'src/app/services/push.service';
+import { Plugins } from '@capacitor/core';
 
 interface Zona {
   [key: string]: { lat: number, lng: number }[];
@@ -167,8 +168,20 @@ export class InicioPage implements OnInit {
   }
 
   async ngOnInit() {
-    // Inicia el seguimiento continuo
-    this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, err) => {
+    this.seguimiento();
+
+    //se ejecutara en segundo plano 
+    const { BackgroundTask } = Plugins;
+    let taskId = BackgroundTask['beforeExit'](async () => {
+      this.seguimiento();
+    BackgroundTask['finish']({
+      taskId
+    });
+  });
+  }
+
+  async seguimiento() {
+  this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, err) => {
     if (position) {
       this.newPosition = {
         lat: position.coords.latitude,
@@ -178,14 +191,13 @@ export class InicioPage implements OnInit {
       this.addMarker(this.newPosition);
       // Guarda la ubicación en el almacenamiento local
       await this.storage?.set('ubicacion', { actual: this.newPosition });
-
       // Verifica si el usuario ha entrado en una nueva zona
       this.verificarZona();
       // Verifica si el usuario ha entrado en un nuevo punto
       this.verificarPuntos();
-      }
-    });
-  }
+    }
+  });
+}
 
   ionViewDidEnter(){
     this.createMap();
@@ -222,8 +234,9 @@ export class InicioPage implements OnInit {
       clickableIcons: true
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
+    //this.addMarker(this.newPosition);
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
-      this.addMarker(position);
+      this.addMarker(this.newPosition);
     });
     
     // Dibuja las zonas en el mapa
@@ -434,6 +447,24 @@ export class InicioPage implements OnInit {
           }
         }
       }
+    }
+  }
+
+  compartirLocation(){
+    const numbers: string[] = ["+52 1 221 943 0106"];
+    const latitude = this.newPosition.lat;
+  const longitude = this.newPosition.lng;
+  for (const phoneNumber of numbers) {
+    const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    window.open(whatsappUrl, '_system');
+  }
+  }
+
+  compartirTiempoReal(){
+    const numbers: string[] = ["+52 1 221 943 0106"];
+    for (const phoneNumber of numbers) {
+      const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=Por favor, sigue las instrucciones para compartir tu ubicación en tiempo real: Abre el chat de WhatsApp -> Toca el clip de adjuntar -> Ubicación -> Ubicación en tiempo real`;
+      window.open(whatsappUrl, '_system');
     }
   }
 }
