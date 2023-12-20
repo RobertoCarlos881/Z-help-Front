@@ -25,7 +25,7 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
   async abrirTerminosYCondiciones() {
-    await Browser.open({ url: '/assets/TÉRMINOS Y CONDICIONES DE USO DE LA APLICACIÓN.pdf' });
+    await Browser.open({ url: 'https://correoipn-my.sharepoint.com/:b:/g/personal/rcortesr1500_alumno_ipn_mx/ERvpD1qDfYZCuO3rMMos8m0Bqm50XFpoT_o5VslqwDX47w?e=CJU8nz' });
   }
 
 }
