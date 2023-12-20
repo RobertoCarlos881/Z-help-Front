@@ -82,7 +82,7 @@ async presentToast2() {
 }
 
 async abrirTerminosYCondiciones() {
-  await Browser.open({ url: 'https://correoipn-my.sharepoint.com/:b:/g/personal/rcortesr1500_alumno_ipn_mx/ERvpD1qDfYZCuO3rMMos8m0Bqm50XFpoT_o5VslqwDX47w?e=CJU8nz' });
+  await Browser.open({ url: 'https://drive.google.com/file/d/195FY72W8xVeS0Q0MdAf9o4L6J5z0UfUR/view?usp=sharing' });
 }
 
 Ayuda(){
