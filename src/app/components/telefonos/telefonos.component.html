@@ -1,0 +1,26 @@
+<ion-card class="card">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button shape="round" color="primary" [fill]="buttonFill" (click)="llamar('5553951111')" expand="full"><ion-icon slot="start" name="fitness-outline" size="large"></ion-icon>Cruz Roja</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button shape="round" color="secondary" [fill]="buttonFill" (click)="llamar('5556581111')" expand="full"><ion-icon slot="start" name="search" size="large"></ion-icon>LOCATEL</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button shape="round" color="danger" [fill]="buttonFill" (click)="llamar('911')" expand="full"><ion-icon name="warning-outline" slot="start" size="large"></ion-icon>Emergencias (911)</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button shape="round" color="tertiary" [fill]="buttonFill" (click)="llamar('089')" expand="full"><ion-icon name="person-circle-outline" slot="start" size="large"></ion-icon>Denuncia Anónima</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button shape="round" color="success" [fill]="buttonFill" (click)="llamar('5551280000')" expand="full"><ion-icon name="shield-half-outline" slot="start" size="large"></ion-icon>Protección Civil</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button shape="round" color="warning" [fill]="buttonFill" (click)="llamar('57683700')" expand="full"><ion-icon name="flame-outline" slot="start" size="large"></ion-icon>Bomberos</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>

@@ -18,35 +18,35 @@
     </ion-header>
     <ion-content >
       <ion-list class="fondo-list">
-        <ion-item class="opciones" detail>
+        <ion-item (click)="Ayuda()" class="opciones" detail>
           <ion-icon slot="start" name="help-circle-outline" size="large" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
           ¿Necesitas ayuda?
           </ion-text>
         </ion-item>
 
-        <ion-item class="opciones" detail>
+        <ion-item (click)="PruebaBotonSOS()" class="opciones" detail>
           <ion-icon slot="start" name="megaphone-sharp" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
             Prueba S.O.S
           </ion-text>
         </ion-item>
 
-        <ion-item class="opciones" detail>
+        <ion-item (click)="abrirTerminosYCondiciones()" class="opciones" detail>
           <ion-icon slot="start" name="document-text" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
             Términos y condiciones
           </ion-text>
         </ion-item>
 
-        <ion-item class="opciones" detail>
+        <!--<ion-item class="opciones" detail>
           <ion-icon slot="start" name="construct-outline" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
             Configuración
           </ion-text>
-        </ion-item>
+        </ion-item>-->
 
-        <ion-item class="opciones" detail>
+        <ion-item (click)="presentPopover()" class="opciones" detail>
           <ion-icon slot="start" name="call" color="dark"></ion-icon>
           <ion-text color="dark" slot="start">
             Telefonos de emergencia

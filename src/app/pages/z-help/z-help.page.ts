@@ -52,7 +52,7 @@ export class ZHelpPage implements OnInit {
     const numbers: string[] = ["+52 1 221 943 0106"];
         SmsManager.send({
             numbers: numbers,
-            text: `Aquí está mi ubicación: ${locationUrl}`,
+            text: `PRESIONÉ EL BOTON S.O.S, Aquí está mi ubicación: ${locationUrl}`,
         }).then(() => {
           this.presentToast2();
         }).catch(error => {

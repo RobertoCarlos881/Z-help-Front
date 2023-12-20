@@ -27,10 +27,11 @@
         </ion-item>
         
         <ion-item color="casilla">
-          <ion-checkbox>
-            <ion-text color="texto" class="ion-text-wrap">
-              He leído y acepto los <a href="">términos y condiciones</a> 
-            </ion-text>
+          <ion-text color="texto" class="ion-text-wrap">
+            He leído y acepto los <a (click)="abrirTerminosYCondiciones()">términos y condiciones</a> 
+          </ion-text>
+          <ion-checkbox slot="end">
+            
           </ion-checkbox> 
           
         

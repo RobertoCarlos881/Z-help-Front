@@ -11,6 +11,7 @@ import { BoletaComponent } from './edit/boleta/boleta.component';
 import { NumeroComponent } from './edit/numero/numero.component';
 import { UbicacionComponent } from './publicacion/ubicacion/ubicacion.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { TelefonosComponent } from './telefonos/telefonos.component';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -23,7 +24,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     NumeroComponent,
     PublicacionComponent,
     LoginComponent,
-    UbicacionComponent
+    UbicacionComponent,
+    TelefonosComponent
   ],
   exports:[
     ComentarComponent,
@@ -34,7 +36,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     NumeroComponent,
     PublicacionComponent,
     LoginComponent,
-    UbicacionComponent
+    UbicacionComponent,
+    TelefonosComponent
   ],
   imports: [
     CommonModule,

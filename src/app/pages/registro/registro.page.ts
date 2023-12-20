@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Browser } from '@capacitor/browser';
 import {
   FormGroup,
   FormControl,
@@ -22,6 +23,9 @@ export class RegistroPage implements OnInit {
     });
   }
   ngOnInit() {
+  }
+  async abrirTerminosYCondiciones() {
+    await Browser.open({ url: '/assets/TÉRMINOS Y CONDICIONES DE USO DE LA APLICACIÓN.pdf' });
   }
 
 }
