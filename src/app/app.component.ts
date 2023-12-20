@@ -42,7 +42,8 @@ async PruebaBotonSOS() {
   this.presentToast();
 
   // Obtiene la ubicación actual del almacenamiento
-  const currentPosition = await this.storage?.get('ubicacion');
+  const currentPosition = await this.storage?.get('ubicacion'); //ubicacion actual
+  console.log("esto es current position", currentPosition);
   console.log('ubicación SOS:', currentPosition.actual);  
   const latitude = currentPosition.actual.lat;
   const longitude = currentPosition.actual.lng;
@@ -81,7 +82,7 @@ async presentToast2() {
 }
 
 async abrirTerminosYCondiciones() {
-  await Browser.open({ url: '/assets/TÉRMINOS Y CONDICIONES DE USO DE LA APLICACIÓN.pdf' });
+  await Browser.open({ url: 'https://correoipn-my.sharepoint.com/:b:/g/personal/rcortesr1500_alumno_ipn_mx/ERvpD1qDfYZCuO3rMMos8m0Bqm50XFpoT_o5VslqwDX47w?e=CJU8nz' });
 }
 
 Ayuda(){

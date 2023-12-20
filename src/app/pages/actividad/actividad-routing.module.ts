@@ -11,10 +11,6 @@ const routes: Routes = [
   {
     path: 'sos',
     loadChildren: () => import('./sos/sos.module').then( m => m.SOSPageModule)
-  },
-  {
-    path: 'zone',
-    loadChildren: () => import('./zone/zone.module').then( m => m.ZonePageModule)
   }
 ];
 

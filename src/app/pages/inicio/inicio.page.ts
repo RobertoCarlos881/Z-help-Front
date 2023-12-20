@@ -180,7 +180,7 @@ export class InicioPage implements OnInit {
   });
   }
 
-  async seguimiento() {
+  async seguimiento() { //se obtiene la posicion
   this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, err) => {
     if (position) {
       this.newPosition = {
