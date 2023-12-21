@@ -359,8 +359,9 @@ export class InicioPage implements OnInit {
     await toast.present();
   }
 
-  verificarZona() {
+  async verificarZona() {
     const punto = new google.maps.LatLng(this.newPosition.lat, this.newPosition.lng);
+    this.ultimaZona = await this.storage?.get('ultimaZona');
     for (const zona in this.zonas) {
       const coordenadas = this.zonas[zona];
       const poligono = new google.maps.Polygon({ paths: coordenadas });
@@ -368,12 +369,14 @@ export class InicioPage implements OnInit {
         if (this.ultimaZona !== zona) {
           console.log(`Has entrado en la zona ${zona}`);
           this.ultimaZona = zona;
+          this.storage?.set('ultimaZona', this.ultimaZona);
           this.pushservice.enviarNotificacion(`Has entrado a ${zona}`, 'Cuerpo de prueba', 'warning-outline', 'warning', coordenadas);
         }
         return;
       }else{
         if (this.ultimaZona === zona){
           this.ultimaZona = null; // Si el usuario sale de la zona, restablece ultimaZona a null
+          this.storage?.set('ultimaZona', this.ultimaZona);
         }
       }
     }    
@@ -381,7 +384,9 @@ export class InicioPage implements OnInit {
 
   async verificarPuntos() {
     const punto = new google.maps.LatLng(this.newPosition.lat, this.newPosition.lng);
-    
+    this.ultimoPuntoSOS = await this.storage?.get('ultimoPuntoSOS') || { lat: 0, lng: 0 };
+    this.ultimoPuntoREP = await this.storage?.get('ultimoPuntoREP') || { lat: 0, lng: 0 };
+    console.log('ultimos puntos-----------',this.ultimoPuntoREP, this.ultimoPuntoSOS);
     // Verifica los puntos de 'puntoSOS'
     let puntosSOS = await this.storage?.get('puntoSOS');
     if (puntosSOS) {
@@ -391,6 +396,7 @@ export class InicioPage implements OnInit {
           if (this.ultimoPuntoSOS.lat !== puntoSOS.lat && this.ultimoPuntoSOS.lng !== puntoSOS.lng){
             console.log('Has entrado en un punto de SOS');
           this.ultimoPuntoSOS = puntoSOS;
+          this.storage?.set('ultimoPuntoSOS', this.ultimoPuntoSOS);
           let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${puntoSOS.lat},${puntoSOS.lng}&key=AIzaSyD4tPyNPgPyGZjo1oWzCS3GZZ152lmohfs`;
             // Realiza la solicitud
             fetch(url)
@@ -407,6 +413,7 @@ export class InicioPage implements OnInit {
         }else{
           if (this.ultimoPuntoSOS.lat === puntoSOS.lat && this.ultimoPuntoSOS.lng === puntoSOS.lng) {
             this.ultimoPuntoSOS = { lat: 0, lng: 0 }; // Si el usuario sale del punto restablece ultimoPunto
+            this.storage?.set('ultimoPuntoSOS', this.ultimoPuntoSOS);
           }
         }
       }
@@ -424,7 +431,7 @@ export class InicioPage implements OnInit {
             console.log( puntoREP);
             console.log('Has entrado en un punto de REP');
             this.ultimoPuntoREP = puntoREP;
-
+            this.storage?.set('ultimoPuntoREP', this.ultimoPuntoREP);
             let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${puntoREP.lat},${puntoREP.lng}&key=AIzaSyD4tPyNPgPyGZjo1oWzCS3GZZ152lmohfs`;
             // Realiza la solicitud
             fetch(url)
@@ -436,14 +443,12 @@ export class InicioPage implements OnInit {
                 this.pushservice.enviarNotificacion('Has entrado a una zona reportada', direccion, 'warning-outline', 'warning', puntoREP);
               })
               .catch(error => console.error(error));
-
-            //await this.pushservice.enviarNotificacion('Has entrado a una zona reportada', 'Cuerpo de prueba', 'nombre_del_icono', 'color_del_icono');
-            
             return;
           }
         }else{
           if (this.ultimoPuntoREP.lat === puntoREP.lat && this.ultimoPuntoREP.lng === puntoREP.lng) {
             this.ultimoPuntoREP = { lat: 0, lng: 0 }; // Si el usuario sale del punto restablece ultimoPunto
+            this.storage?.set('ultimoPuntoREP', this.ultimoPuntoREP);
           }
         }
       }
