@@ -1,10 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { GoogleMap } from '@capacitor/google-maps';
 import { PopoverController } from '@ionic/angular';
 import { LoginComponent } from 'src/app/components/login/login.component';
 import { environment } from 'src/environments/environment';
 import { Geolocation } from '@capacitor/geolocation';
 import { Storage } from '@ionic/storage-angular';
+import { RegistroPage } from '../registro/registro.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-not-logged',
@@ -12,7 +14,7 @@ import { Storage } from '@ionic/storage-angular';
   styleUrls: ['./not-logged.page.scss'],
 })
 export class NotLoggedPage implements OnInit {
-
+  private router = inject(Router);
   /*positionzaca = {
     lat: 19.504391, //19.504505115097537, -99.14692399898082 ciclo:19.504391, -99.142385
     lng: -99.142385,
@@ -162,7 +164,9 @@ if (position) {
     });
   }
 
- 
+  button() {
+    this.router.navigateByUrl('/registro')
+  }
 
   async presentPopover() {
     const popover = await this.popoverCtrl.create({

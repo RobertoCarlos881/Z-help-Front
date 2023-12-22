@@ -2,7 +2,7 @@
 </ion-header>
 
 <ion-content color="secondary">
-  
+
   <ion-img src="assets/logo.png"></ion-img>
   <ion-card class="card">
     <ion-card-header>
@@ -12,56 +12,34 @@
 
 
     <ion-card-content>
-      <form [formGroup]="formularioRegistro">
-        <ion-item color="casilla" class="casilla">
+      <form [formGroup]="myForm" (ngSubmit)="register()">
+        <ion-item color="casilla" class="casilla form-group">
           <ion-label position="floating" color="texto">Numero de celular</ion-label>
-          <ion-input type="number" onkeypress="return event.charCode >= 48" min="1" formControlName="Numero de celular" color="texto"></ion-input>
+          <ion-input type="text" formControlName="telefono" color="texto"></ion-input>
         </ion-item>
-        <ion-item color="casilla" class="casilla">
+        <ion-item color="casilla" class="casilla form-group">
           <ion-label position="floating" color="texto">Contraseña</ion-label>
-          <ion-input type="password" color="texto"></ion-input>
+          <ion-input type="password" color="texto" formControlName="password"></ion-input>
         </ion-item>
-        <ion-item color="casilla" class="casilla">
+        <ion-item color="casilla" class="casilla form-group">
           <ion-label position="floating" color="texto">Confirmar contraseña</ion-label>
-          <ion-input type="password" color="texto"></ion-input>
+          <ion-input type="password" color="texto" formControlName="passwordRepeat"></ion-input>
         </ion-item>
-        
+
         <ion-item color="casilla">
           <ion-text color="texto" class="ion-text-wrap">
-            He leído y acepto los <a (click)="abrirTerminosYCondiciones()">términos y condiciones</a> 
+            He leído y acepto los <a (click)="abrirTerminosYCondiciones()">Términos y condiciones</a>
           </ion-text>
-          <ion-checkbox slot="end">
-            
-          </ion-checkbox> 
-          
-        
+          <ion-checkbox slot="end" formControlName="checkbox">
+          </ion-checkbox>
         </ion-item>
         <br>
-        
+
+        <ion-button role="button" expand="block" [disabled]="myForm.invalid" type="submit">Continuar</ion-button>
+        <ion-button expand="block" fill="clear" href="/not-logged">
+          Volver
+        </ion-button>
       </form>
-      <ion-button expand="block" shape="round" href="/registro/codigo/">
-        Continuar
-      </ion-button>
-      <ion-button expand="block" shape="round" fill="clear" href="/">
-        Volver
-      </ion-button>
-      
     </ion-card-content>
   </ion-card>
-  
-  <!--<ion-popover trigger="popover-button" [dismissOnSelect]="true" side="top" alignment="center">
-    <ng-template>
-      <ion-content>
-        <ion-list>
-          <ion-item>
-            Perteneces al instituto como: 
-          </ion-item>
-          <ion-item [button]="true" [detail]="true" color="primary" href="/registro/alumno/">Alumno</ion-item>
-          <ion-item [button]="true" [detail]="true" color="secondary" href="/registro/maestro-empleado/">Profesor</ion-item>
-          <ion-item [button]="true" [detail]="true" color="tertiary" href="/registro/maestro-empleado/">Empleado</ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>-->
-  
 </ion-content>

@@ -3,20 +3,20 @@
     <ion-card-title class="bienvenida" mode="ios">¡Hola! Que bueno tenerte de vuelta</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <form>
+    <form role="form" [formGroup]="myForm" (ngSubmit)="login()">
       <ion-item class="casilla">
-        <ion-label position="floating">Correo</ion-label>
-        <ion-input formControlName="correo"></ion-input>
+        <ion-label position="floating">Numero telefonico</ion-label>
+        <ion-input formControlName="telefono" type="text"></ion-input>
       </ion-item>
       <ion-item class="casilla">
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
-      <ion-label slot="end"><a href="login/numero">¿Contraseña olvidada?</a></ion-label>
+      <ion-label slot="end"><a>¿Contraseña olvidada?</a></ion-label>
+      <br>
+      <ion-button expand="block" shape="round" href="z-help" [disabled]="myForm.invalid" type="submit">
+        Iniciar Sesión
+      </ion-button>
     </form>
-    <br>
-    <ion-button expand="block" shape="round" href="z-help">
-      Iniciar Sesión
-    </ion-button>
   </ion-card-content>
 </ion-card>

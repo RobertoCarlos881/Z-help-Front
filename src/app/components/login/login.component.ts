@@ -1,29 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder
-} from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent {
+  private authService = inject( AuthService )
+  private fb = inject( FormBuilder );
+  private router = inject(Router);
 
-  formularioLogin: FormGroup;
+  public myForm: FormGroup = this.fb.group({
+    telefono: ['', [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+  });
 
-  constructor(public fb: FormBuilder) { 
-
-    this.formularioLogin = this.fb.group({
-      'nombre': new FormControl("",Validators.required),
-      'password': new FormControl("",Validators.required)
-    })
-
+  login() {
+    const { telefono, password } = this.myForm.value;
+    console.log("Ya inicie sesion");
+    console.log(telefono);
+    console.log(password);
+    this.authService.login(telefono, password)
+      .subscribe({
+        next: () => this.router.navigateByUrl('/z-help/inicio'),
+        error: (message) => {
+          console.log("aqui hay error", message);
+          
+          //Swal.fire('Error', message, 'error')
+        }
+      })
   }
 
-  ngOnInit() {}
+  onSubmit() {
+    console.log("Ya inicie sesion");
+
+    this.router.navigate(['/teacher']);
+  }
+
+  recuperarContrasena() {
+    console.log("Recupera tu contraseña");
+
+    this.router.navigate(['/auth/login/recovery-password']);
+  }
 
 }

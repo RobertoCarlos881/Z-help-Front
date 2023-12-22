@@ -12,6 +12,7 @@ import { NumeroComponent } from './edit/numero/numero.component';
 import { UbicacionComponent } from './publicacion/ubicacion/ubicacion.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TelefonosComponent } from './telefonos/telefonos.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -41,7 +42,9 @@ import { TelefonosComponent } from './telefonos/telefonos.component';
   ],
   imports: [
     CommonModule,
-    IonicModule
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ComponentsModule { }
