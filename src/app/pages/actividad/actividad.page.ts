@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { PushService } from 'src/app/services/push.service';
 
@@ -8,10 +8,10 @@ import { PushService } from 'src/app/services/push.service';
   styleUrls: ['./actividad.page.scss'],
 })
 export class ActividadPage {
+  private router = inject(Router);
   mensajes: any[]=[];
 
-  constructor( public pushservice: PushService,
-              private router: Router) { }
+  constructor( public pushservice: PushService) { }
 
   doRefresh(event:any) {
     console.log('Iniciando operación async');
@@ -47,4 +47,7 @@ export class ActividadPage {
     //this.router.navigate(['/z-help/actividad/sos', passpush]);
   }
 
+  perfil() {
+    this.router.navigateByUrl('/perfil')
+  }
 }

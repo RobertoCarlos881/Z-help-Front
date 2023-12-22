@@ -19,6 +19,7 @@ import { AuthStatus } from './auth/enum';
 })
 export class AppComponent {
   //Rober
+  user$?: Promise<any>;
   private authService = inject(AuthService);
   private router = inject(Router);
   public user = computed( () => this.authService.currentUser() );
@@ -39,6 +40,13 @@ export class AppComponent {
   async ngOnInit() {
     const storage = await this.storageService.create();
     this.storage = storage;
+
+    this.user$ = this.storage.get('user')
+      .then(user => user)
+      .catch(error => {
+        console.error("Error al obtener el usuario:", error);
+        return null;
+      });
   }
 
   OneSignalInit() {
@@ -143,5 +151,8 @@ export class AppComponent {
     }
   })
 
+  perfil() {
+    this.router.navigateByUrl('/perfil')
+  }
 
 }

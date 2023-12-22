@@ -35,9 +35,9 @@ export class NotLoggedPage implements OnInit {
     private storageService: Storage
   ) {
     this.init();
-   }
+  }
 
-   
+
   async init() {
     const storage = await this.storageService.create();
     this.storage = storage;
@@ -45,47 +45,47 @@ export class NotLoggedPage implements OnInit {
 
   async ngOnInit() {
     // Inicia el seguimiento continuo
-this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, err) => {
-if (position) {
-  this.newPosition = {
-    lat: position.coords.latitude,
-    lng: position.coords.longitude,
+    this.watchId = Geolocation.watchPosition({ enableHighAccuracy: true }, async (position, err) => {
+      if (position) {
+        this.newPosition = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        }
+        console.log('ubicación actualizada:', this.newPosition);
+        this.addMarker(this.newPosition);
+        // Guarda la ubicación en el almacenamiento local
+        await this.storage?.set('ubicacion', { actual: this.newPosition });
+      }
+    });
   }
-  console.log('ubicación actualizada:', this.newPosition);
-  this.addMarker(this.newPosition);
-  // Guarda la ubicación en el almacenamiento local
-  await this.storage?.set('ubicacion', { actual: this.newPosition });
-  }
-});
-}
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.createMap();
 
   }
-  ionViewDidLeave(){
-    if(this.watchId) Geolocation.clearWatch({ id: this.watchId });
+  ionViewDidLeave() {
+    if (this.watchId) Geolocation.clearWatch({ id: this.watchId });
   }
 
   async createMap() {
-      // Intenta obtener la ubicación del almacenamiento
-  let position = await this.storage?.get('ubicacion');
-  console.log("storage:", position);
-  // Si no hay una ubicación guardada, obtén la ubicación actual
-  if (!position) {
-    position = await this.getCurrentPosition();
-    console.log("ubicacion actual no encotrada en el storage");
-    this.newPosition = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    };
-  }else{
-    console.log("ubicacion actual encotrada en el storage");
-    this.newPosition = {
-      lat: position.actual.lat,
-      lng: position.actual.lng,
-    };
-  }
+    // Intenta obtener la ubicación del almacenamiento
+    let position = await this.storage?.get('ubicacion');
+    console.log("storage:", position);
+    // Si no hay una ubicación guardada, obtén la ubicación actual
+    if (!position) {
+      position = await this.getCurrentPosition();
+      console.log("ubicacion actual no encotrada en el storage");
+      this.newPosition = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      };
+    } else {
+      console.log("ubicacion actual encotrada en el storage");
+      this.newPosition = {
+        lat: position.actual.lat,
+        lng: position.actual.lng,
+      };
+    }
     let latlng = new google.maps.LatLng(this.newPosition.lat, this.newPosition.lng);
     let mapOptions = {
       center: latlng,
@@ -109,46 +109,46 @@ if (position) {
       center: this.positionzaca,
       radius: 30,
       });*/
-  // Obtiene los puntos de 'puntoSOS' y 'puntoREP' del almacenamiento
-  const puntoSOS = await this.storage?.get('puntoSOS');
-  const puntoREP = await this.storage?.get('puntoREP');
+    // Obtiene los puntos de 'puntoSOS' y 'puntoREP' del almacenamiento
+    const puntoSOS = await this.storage?.get('puntoSOS');
+    const puntoREP = await this.storage?.get('puntoREP');
 
-  console.log('ubicaciones rep:', puntoREP);
-  console.log('ubicaciones SOS:', puntoSOS);
-  // Dibuja círculos en las ubicaciones de 'puntoSOS'
-  if (puntoSOS) {
-    for (const point of puntoSOS) {
-      new google.maps.Circle({
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map: this.map,
-        center: point,
-        radius: 30,
+    console.log('ubicaciones rep:', puntoREP);
+    console.log('ubicaciones SOS:', puntoSOS);
+    // Dibuja círculos en las ubicaciones de 'puntoSOS'
+    if (puntoSOS) {
+      for (const point of puntoSOS) {
+        new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35,
+          map: this.map,
+          center: point,
+          radius: 30,
         });
       }
     }
 
-  // Dibuja círculos en las ubicaciones de 'puntoREP'
-  if (puntoREP) {
-    for (const point of puntoREP) {
-      new google.maps.Circle({
-        strokeColor: '#FFFF00',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FFFF00',
-        fillOpacity: 0.35,
-        map: this.map,
-        center: point,
-        radius: 30,
+    // Dibuja círculos en las ubicaciones de 'puntoREP'
+    if (puntoREP) {
+      for (const point of puntoREP) {
+        new google.maps.Circle({
+          strokeColor: '#FFFF00',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FFFF00',
+          fillOpacity: 0.35,
+          map: this.map,
+          center: point,
+          radius: 30,
         });
       }
     }
   }
 
-  addMarker(position: any): void{
+  addMarker(position: any): void {
     this.map.panTo(position);
     this.map.setZoom(18);
     if (this.marker) {
@@ -174,13 +174,14 @@ if (position) {
       cssClass: 'contact-popover',
       translucent: false
     });
-  
+
     await popover.present();
+    //await this.popoverCtrl.dismiss();
   }
 
   async mylocation() {
     console.log('ubicación------------:', this.newPosition);
-  this.addMarker(this.newPosition);
+    this.addMarker(this.newPosition);
   }
 
   async getCurrentPosition() {
@@ -188,11 +189,11 @@ if (position) {
     return coordinates;
   }
 
-  Ayuda(){
+  Ayuda() {
     const numbers: string[] = ["+52 1 221 943 0106"];
-      const whatsappUrl = `whatsapp://send?phone=${numbers}&text=Hola, necesito ayuda con mi aplicacion Z-Help.`;
-      window.open(whatsappUrl, '_system');
-    
+    const whatsappUrl = `whatsapp://send?phone=${numbers}&text=Hola, necesito ayuda con mi aplicacion Z-Help.`;
+    window.open(whatsappUrl, '_system');
+
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { ComentarComponent } from 'src/app/components/comentar/comentar.component';
@@ -12,7 +13,7 @@ import { PublicacionComponent } from 'src/app/components/publicacion/publicacion
   styleUrls: ['./foro.page.scss'],
 })
 export class ForoPage implements OnInit {
-
+  private router = inject(Router);
   guardado: boolean = false
 
   constructor( 
@@ -60,6 +61,10 @@ export class ForoPage implements OnInit {
     });
 
     await toast.present();
+  }
+
+  perfil() {
+    this.router.navigateByUrl('/perfil')
   }
 
 }

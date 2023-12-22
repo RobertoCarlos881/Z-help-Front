@@ -3,9 +3,9 @@
     <ion-title mode="ios">Tu ubicacion:</ion-title>
 
     <ion-buttons slot="start">
-      <ion-button href="perfil" fill="clear" class="head-perfil">
+      <ion-button (click)="perfil()" fill="clear" class="head-perfil">
         <ion-avatar mode="ios">
-          <img src="/assets/yo2.png" />
+          <img src="./assets/perfil.jpg" />
         </ion-avatar>
       </ion-button>
     </ion-buttons>
@@ -21,7 +21,7 @@
   </div>
 
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-    <ion-fab-button class="refresh-button" href="z-help/inicio" size="large" color="primary">
+    <ion-fab-button class="refresh-button" (click)="refreshBoton()" size="large" color="primary">
       <ion-icon name="refresh-outline" size="large"></ion-icon>
     </ion-fab-button>
     <ion-fab-button (click)="mylocation()" size="large" color="secondary">

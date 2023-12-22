@@ -4,15 +4,15 @@
     <ion-header >
       <ion-toolbar color="primary" class="ion-padding-vertical">
         <ion-buttons slot="start" >
-          <ion-button href="perfil" fill="clear" shape="circle">
+          <ion-button fill="clear" shape="circle" (click)="perfil()">
             <ion-avatar>
-              <img src="/assets/yo2.png" />
+              <img src="./assets/perfil.jpg" />
             </ion-avatar>
           </ion-button>
         </ion-buttons>
-        <ion-label class="ion-padding-horizontal">PRAXEDES</ion-label>
-        <ion-button fill="clear" href="/" slot="end">
-          <ion-icon name="exit-outline" size="large" color="danger" (click)="onLogout()"></ion-icon>
+        <ion-label class="ion-padding-horizontal" *ngIf="user$ | async as user">{{user.nombre}}</ion-label>
+        <ion-button fill="clear" slot="end" type="button" (click)="onLogout()">
+          <ion-icon type="button" name="exit-outline" size="large" color="danger"></ion-icon>
         </ion-button>
       </ion-toolbar>
     </ion-header>

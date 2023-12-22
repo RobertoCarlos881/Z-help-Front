@@ -3,9 +3,9 @@
     <ion-title mode="ios">Contactos</ion-title>
 
     <ion-buttons slot="start">
-      <ion-button href="perfil" fill="clear" class="head-perfil">
+      <ion-button (click)="perfil()" fill="clear" class="head-perfil">
         <ion-avatar mode="ios">
-          <img src="/assets/yo2.png" />
+          <img src="./assets/perfil.jpg" />
         </ion-avatar>
       </ion-button>
     </ion-buttons>
@@ -46,7 +46,7 @@
 </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button size="large" color="secondary" href="contacts/add">
+    <ion-fab-button size="large" color="secondary" (click)="anadirContacto()">
       <ion-icon name="person-add-outline" size="large"></ion-icon>
     </ion-fab-button>
   </ion-fab>

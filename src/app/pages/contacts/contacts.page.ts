@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contacts.page.scss'],
 })
 export class ContactsPage implements OnInit {
+  private router = inject(Router);
+
   contactos = [//en este arreglo guardas los contactos de la base, los que tengo aqui adentro son puros ejemplos
     { nombre: 'Roberto', numero: '55-5546-8586' },
     { nombre: 'Praxedes', numero: '55-5546-8586' },
@@ -21,6 +24,12 @@ export class ContactsPage implements OnInit {
     window.open(`tel:${numero}`, '_system');
   }
 
+  anadirContacto() {
+    this.router.navigateByUrl('/contacts/add')
+  }
   
+  perfil() {
+    this.router.navigateByUrl('/perfil')
+  }
 
 }

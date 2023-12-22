@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { Storage } from '@ionic/storage-angular';
 import { ToastController } from '@ionic/angular';
 import { PushService } from 'src/app/services/push.service';
 import { Plugins } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 interface Zona {
   [key: string]: { lat: number, lng: number }[];
@@ -14,6 +15,7 @@ interface Zona {
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
+  private router = inject(Router);
 
   @ViewChild('map')
   mapRef!: ElementRef;
@@ -471,5 +473,13 @@ export class InicioPage implements OnInit {
       const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=Por favor, sigue las instrucciones para compartir tu ubicación en tiempo real: Abre el chat de WhatsApp -> Toca el clip de adjuntar -> Ubicación -> Ubicación en tiempo real`;
       window.open(whatsappUrl, '_system');
     }
+  }
+
+  refreshBoton() {
+    this.router.navigateByUrl('/z-help/inicio')
+  }
+
+  perfil() {
+    this.router.navigateByUrl('/perfil')
   }
 }
