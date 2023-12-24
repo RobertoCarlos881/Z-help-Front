@@ -191,7 +191,7 @@ export class NotLoggedPage implements OnInit {
 
   Ayuda() {
     const numbers: string[] = ["+52 1 221 943 0106"];
-    const whatsappUrl = `whatsapp://send?phone=${numbers}&text=Hola, necesito ayuda con mi aplicacion Z-Help.`;
+    const whatsappUrl = `whatsapp://send?phone=${numbers}&text=Hola, necesito ayuda con mi aplicación Z-Help.`;
     window.open(whatsappUrl, '_system');
 
   }

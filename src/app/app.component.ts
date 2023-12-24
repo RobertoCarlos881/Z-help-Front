@@ -70,7 +70,7 @@ export class AppComponent {
     const numbers: string[] = ["+52 1 221 943 0106"];// se envia a la lista de contactos
     SmsManager.send({
       numbers: numbers,
-      text: `Estoy probando el boton de S.O.S de mi aplicacion Z-Help, Aquí está mi ubicación: ${locationUrl}`,
+      text: `Estoy probando el botón de S.O.S de mi aplicación Z-Help, Aquí está mi ubicación: ${locationUrl}`,
     }).then(() => {
       this.presentToast2();
     }).catch(error => {
