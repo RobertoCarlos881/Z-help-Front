@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-numero',
@@ -7,8 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NumeroComponent  implements OnInit {
 
-  constructor() { }
+  constructor(private popoverCtrl: PopoverController) { }
 
   ngOnInit() {}
+  numero: any;
+  
+  guardarNombre() {
+    this.cerrarPopover(this.numero);
+  }
+  
+  async cerrarPopover(numero: any = null) {
+    await this.popoverCtrl.dismiss(numero);
+  }
 
 }

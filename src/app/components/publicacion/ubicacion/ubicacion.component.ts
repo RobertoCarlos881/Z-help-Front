@@ -50,10 +50,11 @@ export class UbicacionComponent implements OnInit {
       lng: center.lng()
     };
     console.log(this.ubicacion);
+    this.cerrarPopover(this.ubicacion);
   }
 
-  async cerrarPopover() {
-    await this.popoverCtrl.dismiss();
+  async cerrarPopover(ubicacion: any = null) {
+    await this.popoverCtrl.dismiss(ubicacion);
   }
 
 }

@@ -20,6 +20,7 @@ export class PublicarPage implements OnInit {
   mapRef!: ElementRef;*/
   @ViewChild('map', { static: false }) mapRef!: ElementRef;
   map: any;
+  ubicacion: any;
 
   constructor(private popoverCtrl: PopoverController) { }
 
@@ -70,6 +71,13 @@ export class PublicarPage implements OnInit {
     });
   
     await popover.present();
+    await popover.present();
+
+  const { data } = await popover.onWillDismiss();
+  if (data) {
+    this.ubicacion = data;//esta la ubicacion que eligio el usuario, es null por defecto si no selecciona nada
+    console.log(this.ubicacion);
+  }
   }
 
 }
