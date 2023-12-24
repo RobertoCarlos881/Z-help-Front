@@ -47,6 +47,8 @@ export class AppComponent {
         console.error("Error al obtener el usuario:", error);
         return null;
       });
+
+    
   }
 
   OneSignalInit() {
@@ -138,6 +140,9 @@ export class AppComponent {
 
   public authStatusChangedEffect = effect( () => {
     console.log(this.authService.authStatus());
+    const auth = this.storage?.get('authenticated');
+    console.log(auth);
+    
     
     switch( this.authService.authStatus() ) {
       case AuthStatus.checking:

@@ -39,6 +39,7 @@ export class AuthService {
         
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
+        this.storage?.set('authenticated', AuthStatus.authenticated);
         this.storage?.set('token', token);
         this.storage?.set('user', user);
 
@@ -96,5 +97,8 @@ export class AuthService {
         //this.storage?.clear();
         this._currentUser.set(null);
         this._authStatus.set(AuthStatus.notAuthenticated);
+        this.storage?.set('authenticated', AuthStatus.notAuthenticated)
+        this.storage?.remove('user')
+
     }
 }

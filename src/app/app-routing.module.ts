@@ -15,11 +15,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
   },
   {
-    path: 'login',
-    canActivate: [isNotAuthenticatedGuard],
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
     path: 'contacts',
     canActivate: [isAuthenticatedGuard],
     loadChildren: () => import('./pages/contacts/contacts.module').then( m => m.ContactsPageModule)
