@@ -238,15 +238,39 @@ export class InicioPage implements OnInit {
   async verificarZona() {
     const punto = new google.maps.LatLng(this.newPosition.lat, this.newPosition.lng);
     this.ultimaZona = await this.storage?.get('ultimaZona');
+    let puntosSOS = await this.storage?.get('puntoSOS');
+    let puntosREP = await this.storage?.get('puntoREP');
     for (const zona in this.zonas) {
       const coordenadas = this.zonas[zona];
       const poligono = new google.maps.Polygon({ paths: coordenadas });
       if (google.maps.geometry.poly.containsLocation(punto, poligono)) {
         if (this.ultimaZona !== zona) {
           console.log(`Has entrado en la zona ${zona}`);
+
+          //aqui hace el conteo de cuantos puntos estan dentro de esa zona
+          let contadorSOS = 0;
+          let contadorREP = 0;
+          if (puntosSOS) {
+            for (const puntoSOS of puntosSOS) {
+              if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(puntoSOS.lat, puntoSOS.lng), poligono)) {
+                contadorSOS++;
+              }
+            }
+          }
+          if (puntosREP) {
+            for (const puntoREP of puntosREP) {
+              if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(puntoREP.lat, puntoREP.lng), poligono)) {
+                contadorREP++;
+              }
+            }
+          }
+
+          //iguala la ultima zona con zona, para que no este repitiendose cada ves la noti
           this.ultimaZona = zona;
           this.storage?.set('ultimaZona', this.ultimaZona);
-          this.pushservice.enviarNotificacion(`Has entrado a ${zona}`, 'Cuerpo de prueba', 'warning-outline', 'warning', coordenadas);
+
+          //ya envia la noti con la info
+          this.pushservice.enviarNotificacion(`Has entrado a ${zona}`, `Numero de zonas reportadas: ${contadorREP}, Numero de S.O.S precionados: ${contadorSOS}`, 'warning-outline', 'warning', coordenadas);
         }
         return;
       } else {
@@ -294,7 +318,6 @@ export class InicioPage implements OnInit {
         }
       }
     }
-
     // Verifica los puntos de 'puntoREP'
     let puntosREP = await this.storage?.get('puntoREP');
     if (puntosREP) {
