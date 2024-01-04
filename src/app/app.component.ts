@@ -11,6 +11,7 @@ import { PushService } from './services/push.service';
 import { AuthService } from './auth/services/auth.service';
 import { Router } from '@angular/router';
 import { AuthStatus } from './auth/enum';
+import { EndpointService } from './services/endpoint.service';
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ export class AppComponent {
     private platform: Platform,
     private toastController: ToastController,
     private storageService: Storage,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private endpointService: EndpointService
   ) {
     this.OneSignalInit();
   }
@@ -40,15 +42,6 @@ export class AppComponent {
   async ngOnInit() {
     const storage = await this.storageService.create();
     this.storage = storage;
-
-    this.user$ = this.storage.get('user')
-      .then(user => user)
-      .catch(error => {
-        console.error("Error al obtener el usuario:", error);
-        return null;
-      });
-
-    
   }
 
   OneSignalInit() {

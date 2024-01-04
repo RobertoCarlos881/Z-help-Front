@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { PushService } from 'src/app/services/push.service';
 import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
+import { EndpointService } from 'src/app/services/endpoint.service';
 
 interface Zona {
   [key: string]: { lat: number, lng: number }[];
@@ -38,26 +39,29 @@ export class InicioPage implements OnInit {
     ESIQIE: [{ lat: 19.500594, lng: -99.135235 }, { lat: 19.500392, lng: -99.134034 }, { lat: 19.502298, lng: -99.133669 }, { lat: 19.502511, lng: -99.134860 }],
     ESFM: [{ lat: 19.502561, lng: -99.134844 }, { lat: 19.502329, lng: -99.133674 }, { lat: 19.503016, lng: -99.133524 }, { lat: 19.503224, lng: -99.134726 }],
     LABS_ESFM: [{ lat: 19.501029, lng: -99.133310 }, { lat: 19.500872, lng: -99.132500 }, { lat: 19.502678, lng: -99.132231 }, { lat: 19.502784, lng: -99.132977 }],
-    ESIT: [{ lat: 19.500028, lng: -99.133352 },{ lat: 19.499932, lng: -99.132832 },{ lat: 19.500791, lng: -99.132687 },{ lat: 19.500893, lng: -99.133197 }],
-    CENTRO_CULTURAL_JTB: [{ lat: 19.495917, lng: -99.136134 },{ lat: 19.495713, lng: -99.134839 },{ lat: 19.496495, lng: -99.134722 },{ lat: 19.496714, lng: -99.135813 }],
-    PLAZA_ROJA: [{ lat: 19.495817, lng: -99.134776 },{ lat: 19.495748, lng: -99.134313 },{ lat: 19.496401, lng: -99.134173 },{ lat: 19.496470, lng: -99.134712 }],
-    CAP: [{ lat: 19.495590, lng: -99.134102 },{ lat: 19.495462, lng: -99.133371 },{ lat: 19.496470, lng: -99.133191 },{ lat: 19.496589, lng: -99.133901 }],
-    PLANETARIO: [{ lat: 19.496125, lng: -99.140022 },{ lat: 19.496002, lng: -99.139431 },{ lat: 19.496959, lng: -99.139120 },{ lat: 19.497031, lng: -99.139682 }],
-    ENCB: [{ lat: 19.499170, lng: -99.146803 },{ lat: 19.498323, lng: -99.144723 },{ lat: 19.501003, lng: -99.143211 },{ lat: 19.501913, lng: -99.145507 }],
-    ZONA_DEPORTIVA: [{ lat: 19.497499, lng: -99.140249 },{ lat: 19.496939, lng: -99.137053 },{ lat: 19.503566, lng: -99.135776 },{ lat: 19.504098, lng: -99.138951 }],
-    ESIA: [{ lat: 19.503586, lng: -99.134042 },{ lat: 19.504471, lng: -99.138908 },{ lat: 19.506003, lng: -99.138559 },{ lat: 19.505477, lng: -99.133935 }],
-    CICLOPISTA: [{ lat: 19.499537, lng: -99.140256 },{ lat: 19.504187, lng: -99.139346 },{ lat: 19.505023, lng: -99.144711 },{ lat: 19.501144, lng: -99.145621 }],
-    UPIEM: [{ lat: 19.497953, lng: -99.143333 },{ lat: 19.497782, lng: -99.142863 },{ lat: 19.498502, lng: -99.142501 },{ lat: 19.498733, lng: -99.142951 }],
-    CNMN_IPN: [{ lat: 19.498909, lng: -99.141846 },{ lat: 19.498558, lng: -99.141176 },{ lat: 19.499072, lng: -99.140877 },{ lat: 19.499246, lng: -99.141426 }],
-    SECRETARIA_DE_ADMIN: [{ lat: 19.508092, lng: -99.139513 },{ lat: 19.508207, lng: -99.139106 },{ lat: 19.508727, lng: -99.139282 },{ lat: 19.508582, lng: -99.139760 }],
+    ESIT: [{ lat: 19.500028, lng: -99.133352 }, { lat: 19.499932, lng: -99.132832 }, { lat: 19.500791, lng: -99.132687 }, { lat: 19.500893, lng: -99.133197 }],
+    CENTRO_CULTURAL_JTB: [{ lat: 19.495917, lng: -99.136134 }, { lat: 19.495713, lng: -99.134839 }, { lat: 19.496495, lng: -99.134722 }, { lat: 19.496714, lng: -99.135813 }],
+    PLAZA_ROJA: [{ lat: 19.495817, lng: -99.134776 }, { lat: 19.495748, lng: -99.134313 }, { lat: 19.496401, lng: -99.134173 }, { lat: 19.496470, lng: -99.134712 }],
+    CAP: [{ lat: 19.495590, lng: -99.134102 }, { lat: 19.495462, lng: -99.133371 }, { lat: 19.496470, lng: -99.133191 }, { lat: 19.496589, lng: -99.133901 }],
+    PLANETARIO: [{ lat: 19.496125, lng: -99.140022 }, { lat: 19.496002, lng: -99.139431 }, { lat: 19.496959, lng: -99.139120 }, { lat: 19.497031, lng: -99.139682 }],
+    ENCB: [{ lat: 19.499170, lng: -99.146803 }, { lat: 19.498323, lng: -99.144723 }, { lat: 19.501003, lng: -99.143211 }, { lat: 19.501913, lng: -99.145507 }],
+    ZONA_DEPORTIVA: [{ lat: 19.497499, lng: -99.140249 }, { lat: 19.496939, lng: -99.137053 }, { lat: 19.503566, lng: -99.135776 }, { lat: 19.504098, lng: -99.138951 }],
+    ESIA: [{ lat: 19.503586, lng: -99.134042 }, { lat: 19.504471, lng: -99.138908 }, { lat: 19.506003, lng: -99.138559 }, { lat: 19.505477, lng: -99.133935 }],
+    CICLOPISTA: [{ lat: 19.499537, lng: -99.140256 }, { lat: 19.504187, lng: -99.139346 }, { lat: 19.505023, lng: -99.144711 }, { lat: 19.501144, lng: -99.145621 }],
+    UPIEM: [{ lat: 19.497953, lng: -99.143333 }, { lat: 19.497782, lng: -99.142863 }, { lat: 19.498502, lng: -99.142501 }, { lat: 19.498733, lng: -99.142951 }],
+    CNMN_IPN: [{ lat: 19.498909, lng: -99.141846 }, { lat: 19.498558, lng: -99.141176 }, { lat: 19.499072, lng: -99.140877 }, { lat: 19.499246, lng: -99.141426 }],
+    SECRETARIA_DE_ADMIN: [{ lat: 19.508092, lng: -99.139513 }, { lat: 19.508207, lng: -99.139106 }, { lat: 19.508727, lng: -99.139282 }, { lat: 19.508582, lng: -99.139760 }],
+    ROBERTO_CASA: [{ lat: 19.30780063029889, lng: -99.27004748827716 }, { lat: 19.30710883262681, lng: -99.2698072817915 }, { lat: 19.307003466264522, lng: -99.27032603759297 }, { lat: 19.307744222291376, lng: -99.27053579536852 }]
   };
 
   constructor(private toastController: ToastController,
     private storageService: Storage,
-    public pushservice: PushService
+    public pushservice: PushService,
+    private endpointService: EndpointService
   ) {
     this.init();
   }
+  
 
   async init() {
     const storage = await this.storageService.create();
@@ -65,6 +69,7 @@ export class InicioPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.endpointService.getUser("2");
     this.seguimiento();
 
     //se ejecutara en segundo plano 
@@ -75,6 +80,8 @@ export class InicioPage implements OnInit {
         taskId
       });
     });
+
+    
   }
 
   async seguimiento() { //se obtiene la posicion
@@ -102,6 +109,8 @@ export class InicioPage implements OnInit {
   ionViewDidLeave() {
     if (this.watchId) Geolocation.clearWatch({ id: this.watchId });
   }
+
+
 
   //aqui esta el codigo
   async createMap() {
@@ -136,6 +145,20 @@ export class InicioPage implements OnInit {
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       this.addMarker(this.newPosition);
     });
+
+    // Dibuja las zonas en el mapa
+    for (const zona in this.zonas) {
+      const coordenadas = this.zonas[zona];
+      const poligono = new google.maps.Polygon({
+        paths: coordenadas,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+      });
+      poligono.setMap(this.map);
+    }
 
     // Obtiene los puntos del almacenamiento
     const puntoSOS = await this.storage?.get('puntoSOS');
@@ -254,6 +277,7 @@ export class InicioPage implements OnInit {
             for (const puntoSOS of puntosSOS) {
               if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(puntoSOS.lat, puntoSOS.lng), poligono)) {
                 contadorSOS++;
+                console.log(contadorSOS);
               }
             }
           }
@@ -261,6 +285,8 @@ export class InicioPage implements OnInit {
             for (const puntoREP of puntosREP) {
               if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(puntoREP.lat, puntoREP.lng), poligono)) {
                 contadorREP++;
+                console.log(contadorREP);
+
               }
             }
           }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { Observable, catchError, from, map, of, tap, throwError } from 'rxjs';
 
 import { Storage } from '@ionic/storage-angular';
 
@@ -27,6 +27,17 @@ export class EndpointService {
         this.storage = storage;
     }
 
+    async getUbicacion() {
+        let position = await this.storage?.get('ubicacion');
+
+        const lat = position.actual.lat;
+        const lng = position.actual.lng;
+        const datosUbicacion = [lat, lng];
+
+        console.log(datosUbicacion);
+        return datosUbicacion;
+    }
+
     cargarUsuario() {
         this.user$ = this.storage?.get('user')
             .then(user => user)
@@ -40,6 +51,7 @@ export class EndpointService {
     private async extractUserId(): Promise<number> {
         try {
             const user = await this.user$;
+            console.log("aqui esta el usuario", user);
             return user ? user.id_usuario : null;
         } catch (error) {
             console.error("Error al extraer el ID del usuario:", error);
@@ -47,11 +59,22 @@ export class EndpointService {
         }
     }
 
-    getUser(id: string): Observable<any> {
-        return this.http.get<any>(`${this.baseUrl}/perfil/${id}`)
-            .pipe(
-                catchError(error => of(undefined))
-            );
+    async getUser(id: string): Promise<any> {
+        try {
+            const idUser = await this.cargarUsuario()
+            console.log("id user", idUser);
+
+            const gps = await this.getUbicacion()
+            console.log("hola", gps);
+
+            return this.http.get<any>(`${this.baseUrl}/perfil/${id}`)
+                .pipe(
+                    catchError(error => of(undefined))
+                );
+        } catch (error) {
+            console.error("Error al obtener usuario:", error);
+            throw error;
+        }
     }
 
     deleteUser(id: string): Observable<boolean> {
@@ -73,5 +96,20 @@ export class EndpointService {
     //             )
     //         );
     // }
+
+    createActivity(): Observable<any> {
+        const idUser = this.cargarUsuario()
+        console.log("id user", idUser);
+
+
+
+        const url = `${this.baseUrl}/actividad`
+        const body = {}
+        return this.http.post<any>(url, body)
+    }
+
+    getActivities() {
+
+    }
 
 }
