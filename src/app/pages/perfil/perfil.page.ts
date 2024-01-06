@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { EndpointService } from 'src/app/services/endpoint.service';
 import { Storage } from '@ionic/storage-angular';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -12,35 +13,39 @@ export class PerfilPage implements OnInit {
   user$?: Promise<any>;
   private router = inject(Router);
   private storage: Storage | null = null;
+  datosUsuario: any;
 
-  constructor(private endpointService: EndpointService,
-    private storageService: Storage,) { }
+  constructor(
+    private endpointService: EndpointService,
+    private storageService: Storage,
+    private authService: AuthService) { }
 
   async ngOnInit() {
     const storage = await this.storageService.create();
     this.storage = storage;
-
-    this.user$ = this.storage.get('user')
-      .then(user => user)
-      .catch(error => {
-        console.error("Error al obtener el usuario:", error);
-        return null;
-      });
-
-    const user = await this.user$;
-    if (user) {
-      const data = this.endpointService.getUser(user.id_usuario);
-      console.log("data", data);
-      
-    }
-
+    this.obtenerDatosUser().then(userData => {
+      this.datosUsuario = userData;
+    });
   }
 
   perfilEdit() {
     this.router.navigateByUrl('/perfil/edit')
   }
 
-  obtenerDatosUser() {
+  async obtenerDatosUser() {
+    try {
+      const idUser = await this.endpointService.getUserData(); 
+      const userData = await this.endpointService.getUser(idUser);
+      
+      console.log("Datos del usuario:", userData);
+      return userData;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
+  onLogout() {
+    this.authService.logout();
   }
 }

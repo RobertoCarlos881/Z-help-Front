@@ -21,8 +21,6 @@ export class LoginComponent {
 
   login() {
     const { telefono, password } = this.myForm.value;
-    console.log(telefono);
-    console.log(password);
     this.authService.login(telefono, password)
       .subscribe({
         next: () => this.router.navigateByUrl('/z-help/inicio'),
@@ -40,14 +38,10 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    console.log("Ya inicie sesion");
-
     this.router.navigate(['/z-help/inicio']);
   }
 
   recuperarContrasena() {
-    console.log("Recupera tu contraseña");
-
     this.router.navigate(['/auth/login/recovery-password']);
   }
 

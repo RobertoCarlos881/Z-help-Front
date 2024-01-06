@@ -21,6 +21,8 @@ import { EndpointService } from './services/endpoint.service';
 export class AppComponent {
   //Rober
   user$?: Promise<any>;
+  public datosUbicacion: any;
+  public userId: any;
   private authService = inject(AuthService);
   private router = inject(Router);
   public user = computed( () => this.authService.currentUser() );
@@ -132,10 +134,7 @@ export class AppComponent {
   });
 
   public authStatusChangedEffect = effect( () => {
-    console.log(this.authService.authStatus());
     const auth = this.storage?.get('authenticated');
-    console.log(auth);
-    
     
     switch( this.authService.authStatus() ) {
       case AuthStatus.checking:

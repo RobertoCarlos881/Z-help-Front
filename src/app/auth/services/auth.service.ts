@@ -32,11 +32,7 @@ export class AuthService {
         this.storage = storage;
     }
 
-    private setAuthentication(user: User, token: string): boolean {
-        console.log("Si llegue aqui");
-        console.log(user);
-        console.log(token);
-        
+    private setAuthentication(user: User, token: string): boolean {        
         this._currentUser.set(user);
         this._authStatus.set(AuthStatus.authenticated);
         this.storage?.set('authenticated', AuthStatus.authenticated);
@@ -94,11 +90,9 @@ export class AuthService {
 
     logout() {
         this.storage?.remove('token');
-        //this.storage?.clear();
         this._currentUser.set(null);
         this._authStatus.set(AuthStatus.notAuthenticated);
         this.storage?.set('authenticated', AuthStatus.notAuthenticated)
         this.storage?.remove('user')
-
     }
 }

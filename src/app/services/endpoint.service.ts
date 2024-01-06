@@ -6,14 +6,12 @@ import { Storage } from '@ionic/storage-angular';
 
 import { environment } from "src/environments/environment";
 import { User } from '../auth/interface';
+import { UserData } from '../interfaces/index';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EndpointService {
-    user$?: Promise<any>;
-    userId$?: Promise<number>;
-
     private storage: Storage | null = null;
     private readonly baseUrl: string = environment.API_URL;
     private http = inject(HttpClient);
@@ -38,41 +36,21 @@ export class EndpointService {
         return datosUbicacion;
     }
 
-    cargarUsuario() {
-        this.user$ = this.storage?.get('user')
-            .then(user => user)
-            .catch(error => {
-                console.error("Error al obtener el usuario:", error);
-                return null;
-            });
-        this.userId$ = this.extractUserId();
+    async getUserData() {
+        let user = await this.storage?.get('user');
+
+        const idUsuario = user.id_usuario;
+
+        console.log(idUsuario);
+        return idUsuario;
     }
 
-    private async extractUserId(): Promise<number> {
+    async getUser(id: string): Promise<UserData | undefined> {
         try {
-            const user = await this.user$;
-            console.log("aqui esta el usuario", user);
-            return user ? user.id_usuario : null;
-        } catch (error) {
-            console.error("Error al extraer el ID del usuario:", error);
-            return 0;
-        }
-    }
-
-    async getUser(id: string): Promise<any> {
-        try {
-            const idUser = await this.cargarUsuario()
-            console.log("id user", idUser);
-
-            const gps = await this.getUbicacion()
-            console.log("hola", gps);
-
-            return this.http.get<any>(`${this.baseUrl}/perfil/${id}`)
-                .pipe(
-                    catchError(error => of(undefined))
-                );
-        } catch (error) {
-            console.error("Error al obtener usuario:", error);
+            const userData = await this.http.get<UserData>(`${this.baseUrl}/perfil/${id}`).toPromise();
+            return userData;
+          } catch (error) {
+            console.error("Error al obtener datos del usuario:", error);
             throw error;
         }
     }
@@ -98,11 +76,6 @@ export class EndpointService {
     // }
 
     createActivity(): Observable<any> {
-        const idUser = this.cargarUsuario()
-        console.log("id user", idUser);
-
-
-
         const url = `${this.baseUrl}/actividad`
         const body = {}
         return this.http.post<any>(url, body)

@@ -1,7 +1,11 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="z-help" text="Regresar" mode="ios"></ion-back-button>
+      <ion-back-button
+        defaultHref="z-help"
+        text="Regresar"
+        mode="ios"
+      ></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -12,12 +16,10 @@
   </ion-text>
 
   <ion-card class="card">
-    
     <ion-card-content>
       <ion-grid fixed>
         <ion-row>
-          <ion-col size="2.2">
-          </ion-col>
+          <ion-col size="2.2"> </ion-col>
           <ion-col size="7.5">
             <ion-avatar mode="ios" size="large">
               <img src="./assets/perfil.jpg" />
@@ -25,54 +27,66 @@
           </ion-col>
           <ion-col size=".5">
             <ion-button (click)="perfilEdit()" fill="clear" color="dark">
-              <ion-icon name="create-outline" size="large" ></ion-icon>
-            </ion-button>            
-          </ion-col>        
-        </ion-row>
-
-        <ion-row>
-          <ion-col size="12">
-            <ion-card-title>Jose Praxedes Dominguez Acosta</ion-card-title>
-            <ion-card-subtitle>josepraxedes3@gmail.com</ion-card-subtitle>               
+              <ion-icon name="create-outline" size="large"></ion-icon>
+            </ion-button>
           </ion-col>
         </ion-row>
 
-        <ion-row>
-          <ion-col size="12">
-            <ion-card-subtitle>Número:</ion-card-subtitle>
-            <ion-card-title>55 2211 4596</ion-card-title>
-          </ion-col>
-        </ion-row>
+        <div *ngIf="datosUsuario">
+          <ion-row>
+            <ion-col size="12">
+              <ion-card-title>{{datosUsuario.nombre}}</ion-card-title>
+              <ion-card-subtitle>{{datosUsuario.email}}</ion-card-subtitle>
+            </ion-col>
+          </ion-row>
 
-        <ion-row>
-          <ion-col size="12">
-            <ion-card-subtitle>Escuela:</ion-card-subtitle>
-            <ion-card-title>ESCOM</ion-card-title>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-card-subtitle>Número:</ion-card-subtitle>
+              <ion-card-title>{{datosUsuario.numero_telefonico}}</ion-card-title>
+            </ion-col>
+          </ion-row>
 
-        <ion-row>
-          <ion-col size="12">
-            <ion-card-subtitle>Boleta:</ion-card-subtitle>
-            <ion-card-title>2019026385</ion-card-title>
-            <br><br><br>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+            <ion-col size="12">
+              <ion-card-subtitle>Escuela:</ion-card-subtitle>
+              <ion-card-title>{{datosUsuario.institucion}}</ion-card-title>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="12">
+              <ion-card-subtitle>Boleta:</ion-card-subtitle>
+              <ion-card-title>{{datosUsuario.identificador_politecnico}}</ion-card-title>
+              <br/>
+            </ion-col>
+          </ion-row>
+        </div>
 
         <ion-row>
           <ion-col>
-            <ion-button href="/" fill="clear"  >
-              <ion-icon name="exit-outline" size="large" class="ion-no-padding" color="danger"></ion-icon>
+            <ion-button (click)="onLogout()" fill="clear">
+              <ion-icon
+                name="exit-outline"
+                size="large"
+                class="ion-no-padding"
+                color="danger"
+              ></ion-icon>
               <ion-text color="danger" class="ion-padding-top">
                 <h1>Cerrar Sesión</h1>
               </ion-text>
-            </ion-button>            
+            </ion-button>
           </ion-col>
         </ion-row>
-        
+
         <ion-row>
           <ion-col size="2">
-            <ion-icon name="trash-bin" size="large" class="ion-padding-start" color="danger"></ion-icon>
+            <ion-icon
+              name="trash-bin"
+              size="large"
+              class="ion-padding-start"
+              color="danger"
+            ></ion-icon>
           </ion-col>
           <ion-col size="10">
             <ion-text color="danger" class="ion-padding-top">
@@ -80,7 +94,7 @@
             </ion-text>
           </ion-col>
         </ion-row>
-      </ion-grid>      
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 </ion-content>
