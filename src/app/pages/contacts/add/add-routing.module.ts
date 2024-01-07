@@ -7,10 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: AddPage
-  },
-  {
-    path: 'codigo',
-    loadChildren: () => import('./codigo/codigo.module').then( m => m.CodigoPageModule)
   }
 ];
 

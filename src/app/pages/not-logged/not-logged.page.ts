@@ -51,7 +51,6 @@ export class NotLoggedPage implements OnInit {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
-        console.log('ubicación actualizada:', this.newPosition);
         this.addMarker(this.newPosition);
         // Guarda la ubicación en el almacenamiento local
         await this.storage?.set('ubicacion', { actual: this.newPosition });
@@ -70,17 +69,14 @@ export class NotLoggedPage implements OnInit {
   async createMap() {
     // Intenta obtener la ubicación del almacenamiento
     let position = await this.storage?.get('ubicacion');
-    console.log("storage:", position);
     // Si no hay una ubicación guardada, obtén la ubicación actual
     if (!position) {
       position = await this.getCurrentPosition();
-      console.log("ubicacion actual no encotrada en el storage");
       this.newPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
     } else {
-      console.log("ubicacion actual encotrada en el storage");
       this.newPosition = {
         lat: position.actual.lat,
         lng: position.actual.lng,
@@ -180,7 +176,6 @@ export class NotLoggedPage implements OnInit {
   }
 
   async mylocation() {
-    console.log('ubicación------------:', this.newPosition);
     this.addMarker(this.newPosition);
   }
 
@@ -193,7 +188,6 @@ export class NotLoggedPage implements OnInit {
     const numbers: string[] = ["+52 1 221 943 0106"];
     const whatsappUrl = `whatsapp://send?phone=${numbers}&text=Hola, necesito ayuda con mi aplicación Z-Help.`;
     window.open(whatsappUrl, '_system');
-
   }
 
 }

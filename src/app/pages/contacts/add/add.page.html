@@ -7,10 +7,7 @@
 </ion-header>
 
 <ion-content>
-  
   <ion-icon name="people-outline" class="icono" color="dark"></ion-icon>
-      
-    
   
   <ion-card class="card">
     <ion-card-header>
@@ -18,21 +15,20 @@
       <ion-card-subtitle class="bienvenida" color="dark">Escribe el número de teléfono y el nombre con el que quieres guardar a tu contacto de confianza.</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <form>
+      <form [formGroup]="myForm" (ngSubmit)="guardar()">
         <ion-item class="casilla">
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input></ion-input>
+          <ion-input type="text" formControlName="nombre"></ion-input>
         </ion-item>
         <ion-item class="casilla">
           <ion-label position="floating">Número de teléfono</ion-label>
-          <ion-input></ion-input>
+          <ion-input type="text" formControlName="telefono"></ion-input>
         </ion-item>
-        
+        <br>
+        <ion-button expand="block" shape="round" [disabled]="myForm.invalid" type="submit">
+          Continuar
+        </ion-button>
       </form>
-      <br>
-      <ion-button expand="block" shape="round" (click)="guardar()">
-        Continuar
-      </ion-button>
       <ion-button expand="block" shape="round" fill="clear" (click)="volver()">
         Volver
       </ion-button>

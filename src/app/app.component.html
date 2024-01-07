@@ -9,7 +9,7 @@
             </ion-avatar>
           </ion-button>
         </ion-buttons>
-        <ion-label class="ion-padding-horizontal" *ngIf="user$ | async as user">{{user.nombre}}</ion-label>
+        <ion-label (click)="perfil()" class="ion-padding-horizontal" *ngIf="datosUsuario">{{datosUsuario.nombre}}</ion-label>
         <ion-button fill="clear" slot="end" type="button" (click)="onLogout()">
           <ion-icon type="button" name="exit-outline" size="large" color="danger"></ion-icon>
         </ion-button>

@@ -3,9 +3,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon"
-        android:label="Z-Help-v2"
-        android:roundIcon="@drawable/icon"
+        android:icon="@drawable/logo_z"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/logo_z"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -33,11 +33,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAxsdDigPYpzcAbCfYhmXoyEPBVUu5tIMg"></meta-data>
+         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAxsdDigPYpzcAbCfYhmXoyEPBVUu5tIMg"></meta-data>
     </application>
 
     <!-- Permissions -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

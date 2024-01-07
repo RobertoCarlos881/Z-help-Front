@@ -20,7 +20,7 @@ import { EndpointService } from './services/endpoint.service';
 })
 export class AppComponent {
   //Rober
-  user$?: Promise<any>;
+  datosUsuario?: any;
   public datosUbicacion: any;
   public userId: any;
   private authService = inject(AuthService);
@@ -44,12 +44,21 @@ export class AppComponent {
   async ngOnInit() {
     const storage = await this.storageService.create();
     this.storage = storage;
+
+    this.mostrarNombre().then(userData => {
+      this.datosUsuario = userData;
+    });
   }
 
   OneSignalInit() {
     this.platform.ready().then(() => {
       this.pushService.configInicial();
     })
+  }
+
+  async mostrarNombre() {
+    const data = await this.storage?.get('user');
+    return data;
   }
 
   async PruebaBotonSOS() {

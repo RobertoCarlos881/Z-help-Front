@@ -13,46 +13,51 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-icon name="people-outline" class="icono" color="dark"></ion-icon>
-<br>
-<ion-list>
-  <ion-list-header>
-    <ion-label color="primary"> <h1>Contactos registrados:</h1></ion-label>
-    <ion-note color="primary" class="ion-padding-horizontal"> <h2>{{contactos.length}}/3</h2></ion-note>
-  </ion-list-header>
+  <br />
+  <ion-list>
+    <ion-list-header>
+      <ion-label color="primary"> <h1>Contactos registrados:</h1></ion-label>
+      <ion-note color="primary" class="ion-padding-horizontal">
+        <h2>{{contactos.length}}/3</h2></ion-note
+      >
+    </ion-list-header>
 
-  <ion-item-sliding *ngFor="let contacto of contactos">
-    <ion-item-options side="start">
-      <ion-item-option color="light" (click)="llamar(contacto.numero)">
-        <ion-icon color="primary" name="call-outline" slot="icon-only"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
+    <ion-item-sliding *ngFor="let contacto of contactos">
+      <ion-item-options side="start">
+        <ion-item-option
+          color="light"
+          (click)="llamar(contacto.numero_contacto)"
+        >
+          <ion-icon
+            color="primary"
+            name="call-outline"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
 
-    <ion-item>
-      <ion-label>{{contacto.nombre}}</ion-label>
-      <ion-note slot="end">{{contacto.numero}}</ion-note>
-    </ion-item>
+      <ion-item>
+        <ion-label>{{contacto.nombre_contacto}}</ion-label>
+        <ion-note slot="end">{{contacto.numero_contacto}}</ion-note>
+      </ion-item>
 
-    <ion-item-options side="end">
-      <ion-item-option color="light">
-        <ion-icon color="success" name="create-outline" slot="icon-only"></ion-icon>
-      </ion-item-option>
-      <ion-item-option color="light">
-        <ion-icon color="danger" name="close-circle-outline" slot="icon-only"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
-</ion-list>
+      <ion-item-options side="end">
+        <ion-item-option color="light">
+          <ion-icon
+          (click)="borrarContacto(contacto.id_contacto)"
+            color="danger"
+            name="close-circle-outline"
+            slot="icon-only"
+          ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button size="large" color="secondary" (click)="anadirContacto()">
       <ion-icon name="person-add-outline" size="large"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-
 </ion-content>
-
-
-

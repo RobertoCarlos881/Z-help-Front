@@ -5,8 +5,7 @@ import { Observable, catchError, from, map, of, tap, throwError } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
 
 import { environment } from "src/environments/environment";
-import { User } from '../auth/interface';
-import { UserData } from '../interfaces/index';
+import { UserData, Contacts, Contact, CreateContact } from '../interfaces/index';
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +31,6 @@ export class EndpointService {
         const lng = position.actual.lng;
         const datosUbicacion = [lat, lng];
 
-        console.log(datosUbicacion);
         return datosUbicacion;
     }
 
@@ -41,7 +39,6 @@ export class EndpointService {
 
         const idUsuario = user.id_usuario;
 
-        console.log(idUsuario);
         return idUsuario;
     }
 
@@ -49,18 +46,14 @@ export class EndpointService {
         try {
             const userData = await this.http.get<UserData>(`${this.baseUrl}/perfil/${id}`).toPromise();
             return userData;
-          } catch (error) {
+        } catch (error) {
             console.error("Error al obtener datos del usuario:", error);
             throw error;
         }
     }
 
     deleteUser(id: string): Observable<boolean> {
-        return this.http.delete<boolean>(`${this.baseUrl}/perfil/${id}`)
-            .pipe(
-                map(resp => true),
-                catchError(err => of(false))
-            );
+        return this.http.delete<boolean>(`${this.baseUrl}/perfil/${id}`);
     }
 
     // updateUser(id: string, ): Observable<any> {
@@ -83,6 +76,37 @@ export class EndpointService {
 
     getActivities() {
 
+    }
+
+    async getContactoAll(id: string): Promise<Contacts[] | undefined> {
+        try {
+            const contactsData = await this.http.get<Contacts[]>(`${this.baseUrl}/contactos/${id}`).toPromise();
+            return contactsData;
+        } catch (error) {
+            console.error("Error al obtener los contactos del usuario:", error);
+            throw error;
+        }
+    }
+
+    async getContactoByOne(id: string): Promise<Contact | undefined> {
+        try {
+            const contactData = await this.http.get<Contacts>(`${this.baseUrl}/contactos/contacto/${id}`).toPromise();
+            return contactData;
+        } catch (error) {
+            console.error("Error al obtener el contacto del usuario:", error);
+            throw error;
+        }
+    }
+
+    createContacto(nombreContacto: string, numeroContacto: string, idUsuario: number): Observable<any> {
+        const url = `${this.baseUrl}/contactos`
+        const body = { nombre_contacto: nombreContacto, numero_contacto: numeroContacto, id_usuario: idUsuario}
+
+        return this.http.post<any>(url, body);
+    }
+
+    deleteContacto(id: number): Observable<boolean> {
+        return this.http.delete<boolean>(`${this.baseUrl}/contactos/${id}`);
     }
 
 }

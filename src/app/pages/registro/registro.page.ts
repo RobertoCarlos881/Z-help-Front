@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro',
@@ -22,14 +21,16 @@ export class RegistroPage implements OnInit {
   private router = inject(Router);
 
   public myForm: FormGroup = this.fb.group({
-    telefono: ['', [Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]+$')]],
+    telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     passwordRepeat: ['', [Validators.required]],
     checkbox: [false, [Validators.required]]
   });
   
   ngOnInit() {
+    
   }
+
   async abrirTerminosYCondiciones() {
     await Browser.open({ url: 'https://drive.google.com/file/d/195FY72W8xVeS0Q0MdAf9o4L6J5z0UfUR/view?usp=sharing' });
   }

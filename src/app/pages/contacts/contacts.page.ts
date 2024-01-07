@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, SimpleChanges, inject } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { EndpointService } from 'src/app/services/endpoint.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { Subject, interval, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-contacts',
@@ -9,15 +11,25 @@ import { Router } from '@angular/router';
 })
 export class ContactsPage implements OnInit {
   private router = inject(Router);
+  contactos: any[] = [];
+  private ngUnsubscribe = new Subject<void>();
+  private refreshInterval: any;
 
-  contactos = [//en este arreglo guardas los contactos de la base, los que tengo aqui adentro son puros ejemplos
-    { nombre: 'Roberto', numero: '55-5546-8586' },
-    { nombre: 'Praxedes', numero: '55-5546-8586' },
-    { nombre: 'Bryan', numero: '55-5546-8586' }
-  ];
-  constructor() { }
+  constructor(private endpointService: EndpointService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.obtenerDatosContact().then(userData => {
+      if (userData) {
+        this.contactos = userData;
+      } else {
+        console.error("No se pudieron obtener los contactos");
+      }
+    });
+
+    this.refreshInterval = interval(6000).subscribe(() => {
+      this.actualizarDatos();
+    });
   }
 
   llamar(numero: string) {
@@ -32,4 +44,43 @@ export class ContactsPage implements OnInit {
     this.router.navigateByUrl('/perfil')
   }
 
+  async obtenerDatosContact() {
+    try {
+      const idUser = await this.endpointService.getUserData(); 
+      const contactData = await this.endpointService.getContactoAll(idUser);
+      
+      return contactData;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async borrarContacto(id: number) {
+    try {
+      await this.endpointService.deleteContacto(id).pipe(takeUntil(this.ngUnsubscribe)).toPromise();
+
+      this.contactos = this.contactos.filter(contacto => contacto.id !== id);
+    } catch (error) {
+      // Maneja el error de la eliminación
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Desuscribe para evitar pérdidas de memoria
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+    this.refreshInterval.unsubscribe();
+  }
+
+  actualizarDatos() {
+    this.obtenerDatosContact().then((userData) => {
+      if (userData) {
+        this.contactos = userData;
+        this.cdr.detectChanges(); // Actualiza la vista
+      } else {
+        console.error('No se pudieron obtener los contactos');
+      }
+    });
+  }
 }
