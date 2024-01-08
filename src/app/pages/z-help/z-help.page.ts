@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {SmsManager} from "@byteowls/capacitor-sms";
 import { MenuController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { Contact, Contacts } from 'src/app/interfaces';
+import { EndpointService } from 'src/app/services/endpoint.service';
 
 @Component({
   selector: 'app-z-help',
@@ -13,7 +15,8 @@ export class ZHelpPage implements OnInit {
 
   constructor(private menu: MenuController, 
               private toastController: ToastController,
-              private storageService: Storage) {
+              private storageService: Storage,
+              private endpointService: EndpointService) {
     this.init();
   }
             
@@ -31,34 +34,49 @@ export class ZHelpPage implements OnInit {
   }
 
   async BotonSOS() {
+    let numbers: string[] = [];
     this.presentToast();
-
+    const idUser = await this.endpointService.getUserData();
     // Obtiene la ubicación actual del almacenamiento
-    const currentPosition = await this.storage?.get('ubicacion');
-    console.log('ubicación SOS:', currentPosition.actual);
-    // Obtiene la lista de ubicaciones de 'puntoSOS' del almacenamiento
+    const currentPosition = await this.storage?.get('ubicacion');  
+    
+    this.endpointService.createActivity(currentPosition.actual.lat, currentPosition.actual.lng, idUser, true)
+      .subscribe({
+        error: (message) => {
+          console.log("Aqui esta el error", message);
+        }
+      })
+
     let puntoSOS = await this.storage?.get('puntoSOS');
     if (!puntoSOS) {
       puntoSOS = [];
     }
     // Añade la ubicación actual a la lista de 'puntoSOS'
     puntoSOS.push(currentPosition.actual);
-    // Guarda la lista actualizada de 'puntoSOS' en el almacenamiento
-    await this.storage?.set('puntoSOS', puntoSOS);
+    const idUsuario = await this.endpointService.getUserData(); 
+    const contactData: Contacts[] | undefined = await this.endpointService.getContactoAll(idUsuario);
 
+    if (contactData) {
+      numbers = contactData.map(contacto => `+52 1 ${contacto.numero_contacto}`);
+      console.log(numbers);
+      
+    } else {
+      console.error('La respuesta del servicio es undefined.');
+    }
+    
     const latitude = currentPosition.actual.lat;
     const longitude = currentPosition.actual.lng;
     const locationUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
-    const numbers: string[] = ["+52 1 221 943 0106"];
-        SmsManager.send({
-            numbers: numbers,
-            text: `PRESIONÉ EL BOTÓN S.O.S, Aquí está mi ubicación: ${locationUrl}`,
-        }).then(() => {
-          this.presentToast2();
-        }).catch(error => {
-            console.error(error);
-        });
+    SmsManager.send({
+        numbers: numbers,
+        text: `PRESIONÉ EL BOTÓN S.O.S, Aquí está mi ubicación: ${locationUrl}`,
+    }).then(() => {
+      this.presentToast2();
+    }).catch(error => {
+        console.error(error);
+    });
   }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: '<h1><img src="/assets/alarma.gif" />S.O.S ACTIVO<img src="/assets/alarma.gif" /></h1>',///assets/alarma.gif

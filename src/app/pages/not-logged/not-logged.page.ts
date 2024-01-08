@@ -7,6 +7,8 @@ import { Geolocation } from '@capacitor/geolocation';
 import { Storage } from '@ionic/storage-angular';
 import { RegistroPage } from '../registro/registro.page';
 import { Router } from '@angular/router';
+import { EndpointService } from 'src/app/services/endpoint.service';
+import { interval, startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-not-logged',
@@ -32,7 +34,8 @@ export class NotLoggedPage implements OnInit {
 
   constructor(
     private popoverCtrl: PopoverController,
-    private storageService: Storage
+    private storageService: Storage,
+    private endpointService: EndpointService
   ) {
     this.init();
   }
@@ -56,6 +59,66 @@ export class NotLoggedPage implements OnInit {
         await this.storage?.set('ubicacion', { actual: this.newPosition });
       }
     });
+
+    this.actualizarZonas();
+
+    interval(1000).pipe(
+        startWith(0),
+        switchMap(() => this.actualizarZonas())
+      )
+      .subscribe();
+
+      interval(30000).pipe(
+        startWith(0),
+        switchMap(() => this.createMap())
+      )
+      .subscribe();
+  }
+
+  async actualizarZonas() {
+    type DatosCombinadosItem = {
+      fechaCreacion: Date; // O el tipo de dato correcto para 'creado'
+      lat: number;       // O el tipo de dato correcto para 'latitud'
+      lng: number;      // O el tipo de dato correcto para 'longitud'
+    };
+
+    try {
+      let zonas = await this.endpointService.getActivitiesAll();
+      if (zonas && Array.isArray(zonas)) {
+        let sos: DatosCombinadosItem[] = [];
+        let rep: DatosCombinadosItem[] = [];
+
+        zonas.forEach(item => {
+          if (item && item.accion === true) {
+            const lat = parseFloat(item.latitud);
+            const lng = parseFloat(item.longitud);
+            const datos: DatosCombinadosItem = {
+              fechaCreacion: item.creado,
+              lat: lat,
+              lng: lng
+            }
+            sos.push(datos);
+          }
+          if (item && item.accion === false) {
+            const lat = parseFloat(item.latitud);
+            const lng = parseFloat(item.longitud);
+            const datos: DatosCombinadosItem = {
+              fechaCreacion: item.creado,
+              lat: lat,
+              lng: lng
+            }
+            rep.push(datos);
+          }
+        });
+
+        await this.storage?.set('puntoSOS', sos);
+        await this.storage?.set('puntoREP', rep);
+      } else {
+        console.log('No se encontraron datos válidos en la respuesta.');
+      }
+    } catch (error) {
+      console.error('Error al obtener las actividades:', error);
+    }
   }
 
   ionViewDidEnter() {
@@ -109,9 +172,6 @@ export class NotLoggedPage implements OnInit {
     const puntoSOS = await this.storage?.get('puntoSOS');
     const puntoREP = await this.storage?.get('puntoREP');
 
-    console.log('ubicaciones rep:', puntoREP);
-    console.log('ubicaciones SOS:', puntoSOS);
-    // Dibuja círculos en las ubicaciones de 'puntoSOS'
     if (puntoSOS) {
       for (const point of puntoSOS) {
         new google.maps.Circle({

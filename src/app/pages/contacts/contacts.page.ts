@@ -14,6 +14,7 @@ export class ContactsPage implements OnInit {
   contactos: any[] = [];
   private ngUnsubscribe = new Subject<void>();
   private refreshInterval: any;
+  numContactos?: number = 0;
 
   constructor(private endpointService: EndpointService,
     private cdr: ChangeDetectorRef) { }
@@ -22,6 +23,7 @@ export class ContactsPage implements OnInit {
     this.obtenerDatosContact().then(userData => {
       if (userData) {
         this.contactos = userData;
+        this.numContactos = userData.length;
       } else {
         console.error("No se pudieron obtener los contactos");
       }
@@ -29,6 +31,14 @@ export class ContactsPage implements OnInit {
 
     this.refreshInterval = interval(6000).subscribe(() => {
       this.actualizarDatos();
+    });
+
+    interval(6000).subscribe(() => {
+      this.obtenerDatosContact().then(userData => {
+        if (userData) {
+          this.numContactos = userData.length;
+        }
+      });
     });
   }
 
@@ -48,7 +58,7 @@ export class ContactsPage implements OnInit {
     try {
       const idUser = await this.endpointService.getUserData(); 
       const contactData = await this.endpointService.getContactoAll(idUser);
-      
+
       return contactData;
     } catch (error) {
       console.error(error);

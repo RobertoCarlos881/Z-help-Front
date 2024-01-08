@@ -6,6 +6,8 @@ import { PushService } from 'src/app/services/push.service';
 import { Plugins } from '@capacitor/core';
 import { Router } from '@angular/router';
 import { EndpointService } from 'src/app/services/endpoint.service';
+import { interval, startWith, switchMap } from 'rxjs';
+import { Contacts } from 'src/app/interfaces';
 
 interface Zona {
   [key: string]: { lat: number, lng: number }[];
@@ -69,10 +71,8 @@ export class InicioPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.endpointService.getUser("2");
     this.seguimiento();
 
-    //se ejecutara en segundo plano 
     const { BackgroundTask } = Plugins;
     let taskId = BackgroundTask['beforeExit'](async () => {
       this.seguimiento();
@@ -81,7 +81,65 @@ export class InicioPage implements OnInit {
       });
     });
 
-    
+    this.actualizarZonas();
+
+    interval(1000).pipe(
+        startWith(0),
+        switchMap(() => this.actualizarZonas())
+      )
+      .subscribe();
+
+      interval(30000).pipe(
+        startWith(0),
+        switchMap(() => this.createMap())
+      )
+      .subscribe();
+  }
+
+  async actualizarZonas() {
+    type DatosCombinadosItem = {
+      fechaCreacion: Date; // O el tipo de dato correcto para 'creado'
+      lat: number;       // O el tipo de dato correcto para 'latitud'
+      lng: number;      // O el tipo de dato correcto para 'longitud'
+    };
+
+    try {
+      let zonas = await this.endpointService.getActivitiesAll();
+      if (zonas && Array.isArray(zonas)) {
+        let sos: DatosCombinadosItem[] = [];
+        let rep: DatosCombinadosItem[] = [];
+
+        zonas.forEach(item => {
+          if (item && item.accion === true) {
+            const lat = parseFloat(item.latitud);
+            const lng = parseFloat(item.longitud);
+            const datos: DatosCombinadosItem = {
+              fechaCreacion: item.creado,
+              lat: lat,
+              lng: lng
+            }
+            sos.push(datos);
+          }
+          if (item && item.accion === false) {
+            const lat = parseFloat(item.latitud);
+            const lng = parseFloat(item.longitud);
+            const datos: DatosCombinadosItem = {
+              fechaCreacion: item.creado,
+              lat: lat,
+              lng: lng
+            }
+            rep.push(datos);
+          }
+        });
+
+        await this.storage?.set('puntoSOS', sos);
+        await this.storage?.set('puntoREP', rep);
+      } else {
+        console.log('No se encontraron datos válidos en la respuesta.');
+      }
+    } catch (error) {
+      console.error('Error al obtener las actividades:', error);
+    }
   }
 
   async seguimiento() { //se obtiene la posicion
@@ -109,8 +167,6 @@ export class InicioPage implements OnInit {
   ionViewDidLeave() {
     if (this.watchId) Geolocation.clearWatch({ id: this.watchId });
   }
-
-
 
   //aqui esta el codigo
   async createMap() {
@@ -216,7 +272,6 @@ export class InicioPage implements OnInit {
   }
 
   async mylocation() {
-    console.log('ubicación------------:', this.newPosition);
     this.addMarker(this.newPosition);
   }
 
@@ -233,7 +288,7 @@ export class InicioPage implements OnInit {
   async BotonREP() {
     this.presentToast();
     const currentPosition = this.newPosition;
-    console.log('ubicación reporte:', currentPosition);
+    const idUser = await this.endpointService.getUserData();
     // Obtiene la lista de ubicaciones de 'puntoREP'
     let puntoREP = await this.storage?.get('puntoREP');
     if (!puntoREP) {
@@ -242,7 +297,12 @@ export class InicioPage implements OnInit {
     // Añade la ubicación actual a la lista
     puntoREP.push(currentPosition);
     // Guarda la lista actualizada
-    await this.storage?.set('puntoREP', puntoREP);
+    this.endpointService.createActivity(currentPosition.lat, currentPosition.lng, idUser, false)
+      .subscribe({
+        error: (message) => {
+          console.log("Aqui esta el error", message);
+        }
+      })
   }
 
   async presentToast() {
@@ -380,8 +440,17 @@ export class InicioPage implements OnInit {
     }
   }
 
-  compartirLocation() {
-    const numbers: string[] = ["+52 1 221 943 0106"];
+  async compartirLocation() {
+    let numbers: string[] = [];
+    const idUsuario = await this.endpointService.getUserData(); 
+    const contactData: Contacts[] | undefined = await this.endpointService.getContactoAll(idUsuario);
+
+    if (contactData) {
+      numbers = contactData.map(contacto => `+52 1 ${contacto.numero_contacto}`);
+    } else {
+      console.error('La respuesta del servicio es undefined.');
+    }
+
     const latitude = this.newPosition.lat;
     const longitude = this.newPosition.lng;
     for (const phoneNumber of numbers) {
@@ -390,8 +459,17 @@ export class InicioPage implements OnInit {
     }
   }
 
-  compartirTiempoReal() {
-    const numbers: string[] = ["+52 1 221 943 0106"];
+  async compartirTiempoReal() {
+    let numbers: string[] = [];
+    const idUsuario = await this.endpointService.getUserData(); 
+    const contactData: Contacts[] | undefined = await this.endpointService.getContactoAll(idUsuario);
+
+    if (contactData) {
+      numbers = contactData.map(contacto => `+52 1 ${contacto.numero_contacto}`);
+    } else {
+      console.error('La respuesta del servicio es undefined.');
+    }
+
     for (const phoneNumber of numbers) {
       const whatsappUrl = `whatsapp://send?phone=${phoneNumber}&text=Por favor, sigue las instrucciones para compartir tu ubicación en tiempo real: Abre el chat de WhatsApp -> Toca el clip de adjuntar -> Ubicación -> Ubicación en tiempo real`;
       window.open(whatsappUrl, '_system');

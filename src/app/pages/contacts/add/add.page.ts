@@ -13,7 +13,7 @@ export class AddPage implements OnInit {
   private fb = inject( FormBuilder );
 
   public myForm: FormGroup = this.fb.group({
-    nombre: ['', [Validators.required, Validators.minLength(8)]],
+    nombre: ['', [Validators.required, Validators.minLength(2)]],
     telefono: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('^[0-9]+$')]]
   });
   

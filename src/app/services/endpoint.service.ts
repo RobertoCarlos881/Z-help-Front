@@ -5,7 +5,7 @@ import { Observable, catchError, from, map, of, tap, throwError } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
 
 import { environment } from "src/environments/environment";
-import { UserData, Contacts, Contact, CreateContact } from '../interfaces/index';
+import { UserData, Contacts, Contact, CreateContact, CreateActivity, ActivityAll } from '../interfaces/index';
 
 @Injectable({
     providedIn: 'root'
@@ -68,14 +68,22 @@ export class EndpointService {
     //         );
     // }
 
-    createActivity(): Observable<any> {
+    createActivity(latitud: string, longitud: string, idUsuario: number, accion: boolean): Observable<CreateActivity> {
         const url = `${this.baseUrl}/actividad`
-        const body = {}
-        return this.http.post<any>(url, body)
+        
+        const body = {latitud: latitud, longitud: longitud, id_usuario: idUsuario, accion: accion}
+        
+        return this.http.post<CreateActivity>(url, body)
     }
 
-    getActivities() {
-
+    async getActivitiesAll(): Promise<ActivityAll[] | undefined> {
+        try {
+            const contactsData = await this.http.get<ActivityAll[]>(`${this.baseUrl}/actividad`).toPromise();
+            return contactsData;
+        } catch (error) {
+            console.error("Error al obtener las actividades:", error);
+            throw error;
+        }
     }
 
     async getContactoAll(id: string): Promise<Contacts[] | undefined> {
