@@ -1,5 +1,5 @@
 import { Component, computed, effect, inject } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { MenuController, PopoverController } from '@ionic/angular';
 import { Platform, ToastController } from '@ionic/angular';
 
 import { Storage } from '@ionic/storage-angular';
@@ -36,7 +36,8 @@ export class AppComponent {
     private toastController: ToastController,
     private storageService: Storage,
     private popoverCtrl: PopoverController,
-    private endpointService: EndpointService
+    private endpointService: EndpointService,
+    private menu: MenuController
   ) {
     this.OneSignalInit();
   }
@@ -132,6 +133,7 @@ export class AppComponent {
   }
 
   onLogout() {
+    this.menu.close('MENU');
     this.authService.logout();
   }
 
@@ -158,6 +160,7 @@ export class AppComponent {
   })
 
   perfil() {
+    this.menu.close('MENU');
     this.router.navigateByUrl('/perfil')
   }
 
