@@ -26,14 +26,11 @@ export class LoginComponent {
         next: () => this.router.navigateByUrl('/z-help/inicio'),
         error: (message) => {
           console.log("aqui hay error", message);
-          
-          //Swal.fire('Error', message, 'error')
         }
       })
   }
 
   closePopover() {
-    // Cerrar el Popover
     this.popoverController.dismiss();
   }
 

@@ -12,10 +12,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="numContactos">
+<ion-content [fullscreen]="true">
   <ion-icon name="people-outline" class="icono" color="dark"></ion-icon>
   <br />
-  <ion-list>
+  <ion-list *ngIf="numContactos">
     <ion-list-header>
       <ion-label color="primary"> <h1>Contactos registrados:</h1></ion-label>
       <ion-note color="primary" class="ion-padding-horizontal">
@@ -56,7 +56,7 @@
   </ion-list>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button size="large" color="secondary" (click)="anadirContacto()" [disabled]="numContactos >= 3">
+    <ion-fab-button size="large" color="secondary" (click)="anadirContacto()" [disabled]="numContactos !== undefined && numContactos >= 3">
       <ion-icon name="person-add-outline" size="large"></ion-icon>
     </ion-fab-button>
   </ion-fab>

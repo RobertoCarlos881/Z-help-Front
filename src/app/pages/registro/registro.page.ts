@@ -39,7 +39,7 @@ export class RegistroPage implements OnInit {
     const { telefono, password, passwordRepeat, checkbox } = this.myForm.value;
 
     if (password !== passwordRepeat) {
-      console.log("Las contraseñas estan repetidas");
+      console.log("Las contraseñas no estan repetidas");
       return;
     }
 
