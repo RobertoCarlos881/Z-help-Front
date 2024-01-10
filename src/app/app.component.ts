@@ -20,15 +20,12 @@ import { Contacts } from './interfaces';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  //Rober
   datosUsuario?: any;
   public datosUbicacion: any;
   public userId: any;
   private authService = inject(AuthService);
   private router = inject(Router);
   public user = computed( () => this.authService.currentUser() );
-
-  //Praxedes
   private storage: Storage | null = null;
   
   constructor(

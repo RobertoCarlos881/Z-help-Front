@@ -15,6 +15,7 @@ import { PublicacionComponent } from 'src/app/components/publicacion/publicacion
 export class ForoPage implements OnInit {
   private router = inject(Router);
   guardado: boolean = false
+  segmentoSeleccionado: string = 'Todo';
 
   constructor( 
     private toastController: ToastController,
@@ -70,6 +71,24 @@ export class ForoPage implements OnInit {
   addPublicacion() {
     this.router.navigateByUrl('/foro/publicar')
   }
-  
+
+  cargarDatos() {
+    switch (this.segmentoSeleccionado) {
+      case 'Todo':
+        console.log("probando");
+        
+        break;
+      case 'Consejos':
+        console.log("voy bien");
+        
+        break;
+      case 'Novedades':
+        console.log("adios");
+        
+        break;
+      default:
+        break;
+    }
+  }
 
 }

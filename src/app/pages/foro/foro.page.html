@@ -14,7 +14,7 @@
 
 <ion-content [fullscreen]="true">
   <br>
-  <ion-segment [scrollable]="true" value="Todo">
+  <ion-segment [scrollable]="true" [(ngModel)]="segmentoSeleccionado" (ionChange)="cargarDatos()">
     <ion-segment-button value="Todo">
       <ion-label>Todo</ion-label>
     </ion-segment-button>
