@@ -67,4 +67,9 @@ export class ForoPage implements OnInit {
     this.router.navigateByUrl('/perfil')
   }
 
+  addPublicacion() {
+    this.router.navigateByUrl('/foro/publicar')
+  }
+  
+
 }

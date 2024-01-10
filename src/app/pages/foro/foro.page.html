@@ -10,9 +10,6 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-
-  
-
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -263,7 +260,7 @@
 
    
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button size="large" color="secondary" href="foro/publicar">
+        <ion-fab-button size="large" color="secondary" (click)="addPublicacion()">
           <ion-icon name="add" size="large"></ion-icon>
         </ion-fab-button>
       </ion-fab>

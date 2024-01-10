@@ -364,7 +364,6 @@ export class InicioPage implements OnInit {
     const punto = new google.maps.LatLng(this.newPosition.lat, this.newPosition.lng);
     this.ultimoPuntoSOS = await this.storage?.get('ultimoPuntoSOS') || { lat: 0, lng: 0 };
     this.ultimoPuntoREP = await this.storage?.get('ultimoPuntoREP') || { lat: 0, lng: 0 };
-    console.log('ultimos puntos-----------', this.ultimoPuntoREP, this.ultimoPuntoSOS);
     // Verifica los puntos de 'puntoSOS'
     let puntosSOS = await this.storage?.get('puntoSOS');
     if (puntosSOS) {
