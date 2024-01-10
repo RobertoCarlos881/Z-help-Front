@@ -58,8 +58,6 @@ export class ZHelpPage implements OnInit {
 
     if (contactData) {
       numbers = contactData.map(contacto => `+52 1 ${contacto.numero_contacto}`);
-      console.log(numbers);
-      
     } else {
       console.error('La respuesta del servicio es undefined.');
     }

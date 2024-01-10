@@ -25,7 +25,6 @@ export class AddPage implements OnInit {
   async guardar() {
     const idUser = await this.endpointService.getUserData(); 
     const { nombre, telefono } = this.myForm.value;
-    console.log(nombre, telefono, idUser);
     
     this.endpointService.createContacto(nombre, telefono, idUser)
       .subscribe({

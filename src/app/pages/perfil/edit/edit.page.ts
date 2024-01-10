@@ -12,7 +12,7 @@ export class EditPage implements OnInit {
   datosUsuario: any;
 
   private router = inject(Router);
-  private fb = inject( FormBuilder );
+  private fb = inject(FormBuilder);
 
   public myForm: FormGroup = this.fb.group({
     nombre: ['', [Validators.minLength(2)]],
@@ -26,22 +26,36 @@ export class EditPage implements OnInit {
   ) { }
 
   async ngOnInit() {
-    this.obtenerDatosUser().then(userData => {
+    await this.obtenerDatosUser().then(userData => {
       this.datosUsuario = userData;
-      console.log(this.datosUsuario);
-      
+
+      this.myForm.patchValue({
+        nombre: this.datosUsuario.nombre,
+        correo_electronico: this.datosUsuario.email,
+        escuela: this.datosUsuario.institucion,
+        boleta: this.datosUsuario.identificador_politecnico
+      });
     });
   }
 
-  editar() {
+  async editar() {
+    const idUser = await this.endpointService.getUserData();
+    const { nombre, correo_electronico, escuela, boleta } = this.myForm.value;
 
+    this.endpointService.updateUser(idUser, nombre, correo_electronico, escuela, boleta)
+      .subscribe({
+        next: () => this.router.navigateByUrl('/z-help/contacts'),
+        error: (message) => {
+          console.log("Aqui esta el error", message);
+        }
+      })
   }
 
   async obtenerDatosUser() {
     try {
-      const idUser = await this.endpointService.getUserData(); 
+      const idUser = await this.endpointService.getUserData();
       const userData = await this.endpointService.getUser(idUser);
-      
+
       return userData;
     } catch (error) {
       console.error(error);

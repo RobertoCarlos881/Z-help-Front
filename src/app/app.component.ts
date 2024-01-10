@@ -12,6 +12,7 @@ import { AuthService } from './auth/services/auth.service';
 import { Router } from '@angular/router';
 import { AuthStatus } from './auth/enum';
 import { EndpointService } from './services/endpoint.service';
+import { Contacts } from './interfaces';
 
 @Component({
   selector: 'app-root',
@@ -58,21 +59,29 @@ export class AppComponent {
   }
 
   async mostrarNombre() {
-    const data = await this.storage?.get('user');
+    const idUser = await this.endpointService.getUserData();
+    const data = await this.endpointService.getUser(idUser);
+
     return data;
   }
 
   async PruebaBotonSOS() {
+    let numbers: string[] = [];
     this.presentToast();
 
-    // Obtiene la ubicación actual del almacenamiento
+    const idUsuario = await this.endpointService.getUserData(); 
+    const contactData: Contacts[] | undefined = await this.endpointService.getContactoAll(idUsuario);
+
+    if (contactData) {
+      numbers = contactData.map(contacto => `+52 1 ${contacto.numero_contacto}`);
+    } else {
+      console.error('La respuesta del servicio es undefined.');
+    }
+
     const currentPosition = await this.storage?.get('ubicacion'); //ubicacion actual
-    console.log("esto es current position", currentPosition);
-    console.log('ubicación SOS:', currentPosition.actual);
     const latitude = currentPosition.actual.lat;
     const longitude = currentPosition.actual.lng;
     const locationUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
-    const numbers: string[] = ["+52 1 221 943 0106"];// se envia a la lista de contactos
     SmsManager.send({
       numbers: numbers,
       text: `Estoy probando el botón de S.O.S de mi aplicación Z-Help, Aquí está mi ubicación: ${locationUrl}`,
@@ -82,6 +91,7 @@ export class AppComponent {
       console.error(error);
     });
   }
+
   async presentToast() {
     const toast = await this.toastController.create({
       message: '<h1><img src="/assets/alarma.gif" />PROBANDO S.O.S<img src="/assets/alarma.gif" /></h1>',///assets/alarma.gif
@@ -93,6 +103,7 @@ export class AppComponent {
     });
     await toast.present();
   }
+
   async presentToast2() {
     const toast = await this.toastController.create({
       message: '<h1>Mensaje enviado a tus contactos</h1>',///assets/alarma.gif
@@ -113,7 +124,6 @@ export class AppComponent {
     const numbers: string[] = ["+52 1 221 943 0106"];
     const whatsappUrl = `whatsapp://send?phone=${numbers}&text=Hola, necesito ayuda con mi aplicacion Z-Help.`;
     window.open(whatsappUrl, '_system');
-
   }
 
   async presentPopover() {

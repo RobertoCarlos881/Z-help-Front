@@ -5,7 +5,7 @@ import { Observable, catchError, from, map, of, tap, throwError } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
 
 import { environment } from "src/environments/environment";
-import { UserData, Contacts, Contact, CreateContact, CreateActivity, ActivityAll } from '../interfaces/index';
+import { UserData, Contacts, Contact, CreateContact, CreateActivity, ActivityAll, UpdateUserResponse } from '../interfaces/index';
 
 @Injectable({
     providedIn: 'root'
@@ -56,17 +56,11 @@ export class EndpointService {
         return this.http.delete<boolean>(`${this.baseUrl}/perfil/${id}`);
     }
 
-    // updateUser(id: string, ): Observable<any> {
-    //     const url = `${this.baseUrl}/perfil/${id}`
-    //     const body = { numero_telefonico: telefono, password: password }
-
-    //     return this.http.post<any>(url, body)
-    //         .pipe(
-    //             map(({ user, token }) => this.setAuthentication(user, token)),
-    //             catchError(err => throwError(() => err.error.message)
-    //             )
-    //         );
-    // }
+    updateUser(id: string, nombre: string, email: string, institucion: string, identificador_politecnico: number): Observable<UpdateUserResponse> {
+        const url = `${this.baseUrl}/perfil/${id}`
+        const body = { nombre: nombre, email: email, institucion: institucion, identificador_politecnico: identificador_politecnico}
+        return this.http.patch<UpdateUserResponse>(url, body);
+    }
 
     createActivity(latitud: string, longitud: string, idUsuario: number, accion: boolean): Observable<CreateActivity> {
         const url = `${this.baseUrl}/actividad`

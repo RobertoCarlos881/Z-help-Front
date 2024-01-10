@@ -4,3 +4,4 @@ export * from './contacts.interface';
 export * from './create-contact.interface';
 export * from './actividad.interface';
 export * from './activity-all.interface';
+export * from './update-user-response.interface';
