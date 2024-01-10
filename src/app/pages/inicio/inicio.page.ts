@@ -149,7 +149,6 @@ export class InicioPage implements OnInit {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
-        console.log('ubicación actualizada:', this.newPosition);
         this.addMarker(this.newPosition);
         // Guarda la ubicación en el almacenamiento local
         await this.storage?.set('ubicacion', { actual: this.newPosition });
@@ -172,17 +171,14 @@ export class InicioPage implements OnInit {
   async createMap() {
     // Intenta obtener la ubicación del almacenamiento
     let position = await this.storage?.get('ubicacion');
-    console.log("storage:", position);
     // Si no hay una ubicación guardada, obtén la ubicación actual
     if (!position) {
       position = await this.getCurrentPosition();
-      console.log("ubicacion actual no encotrada en el storage");
       this.newPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
     } else {
-      console.log("ubicacion actual encotrada en el storage");
       this.newPosition = {
         lat: position.actual.lat,
         lng: position.actual.lng,
@@ -219,8 +215,6 @@ export class InicioPage implements OnInit {
     // Obtiene los puntos del almacenamiento
     const puntoSOS = await this.storage?.get('puntoSOS');
     const puntoREP = await this.storage?.get('puntoREP');
-    console.log('ubicaciones rep:', puntoREP);
-    console.log('ubicaciones SOS:', puntoSOS);
 
     // Dibuja círculos en las ubicaciones de 'puntoSOS'
     if (puntoSOS) {
@@ -328,8 +322,6 @@ export class InicioPage implements OnInit {
       const poligono = new google.maps.Polygon({ paths: coordenadas });
       if (google.maps.geometry.poly.containsLocation(punto, poligono)) {
         if (this.ultimaZona !== zona) {
-          console.log(`Has entrado en la zona ${zona}`);
-
           //aqui hace el conteo de cuantos puntos estan dentro de esa zona
           let contadorSOS = 0;
           let contadorREP = 0;
