@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="z-help/contacts" text="Regresar" mode="ios"></ion-back-button>
+      <ion-back-button (click)="volver()" text="Regresar" mode="ios"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
     <ion-card-content>
       <form [formGroup]="myForm" (ngSubmit)="guardar()">
         <ion-item class="casilla">
-          <ion-label position="floating">Nombre</ion-label>
+          <ion-label position="floating">Nombre (tamaño mínimo: 4 letras)</ion-label>
           <ion-input type="text" formControlName="nombre"></ion-input>
         </ion-item>
         <ion-item class="casilla">
@@ -29,9 +29,6 @@
           Continuar
         </ion-button>
       </form>
-      <ion-button expand="block" shape="round" fill="clear" (click)="volver()">
-        Volver
-      </ion-button>
     </ion-card-content>
   </ion-card>
 
