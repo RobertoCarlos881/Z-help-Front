@@ -111,4 +111,6 @@ export class EndpointService {
         return this.http.delete<boolean>(`${this.baseUrl}/contactos/${id}`);
     }
 
+    
+
 }

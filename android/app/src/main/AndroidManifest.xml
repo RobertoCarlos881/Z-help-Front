@@ -33,7 +33,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
-         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAxsdDigPYpzcAbCfYhmXoyEPBVUu5tIMg"></meta-data>
+      <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAxsdDigPYpzcAbCfYhmXoyEPBVUu5tIMg"></meta-data>
     </application>
 
     <!-- Permissions -->

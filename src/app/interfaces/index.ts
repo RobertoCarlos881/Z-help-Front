@@ -5,3 +5,5 @@ export * from './create-contact.interface';
 export * from './actividad.interface';
 export * from './activity-all.interface';
 export * from './update-user-response.interface';
+export * from './create-publicacion.interface';
+export * from './ver-publicaciones.interface';

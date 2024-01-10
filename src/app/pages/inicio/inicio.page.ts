@@ -63,7 +63,7 @@ export class InicioPage implements OnInit {
   ) {
     this.init();
   }
-  
+
 
   async init() {
     const storage = await this.storageService.create();
@@ -84,15 +84,15 @@ export class InicioPage implements OnInit {
     this.actualizarZonas();
 
     interval(1000).pipe(
-        startWith(0),
-        switchMap(() => this.actualizarZonas())
-      )
+      startWith(0),
+      switchMap(() => this.actualizarZonas())
+    )
       .subscribe();
 
-      interval(30000).pipe(
-        startWith(0),
-        switchMap(() => this.createMap())
-      )
+    interval(30000).pipe(
+      startWith(0),
+      switchMap(() => this.createMap())
+    )
       .subscribe();
   }
 
@@ -169,6 +169,7 @@ export class InicioPage implements OnInit {
 
   //aqui esta el codigo
   async createMap() {
+    let poligono: google.maps.Polygon | null = null;
     // Intenta obtener la ubicación del almacenamiento
     let position = await this.storage?.get('ubicacion');
     // Si no hay una ubicación guardada, obtén la ubicación actual
@@ -193,15 +194,14 @@ export class InicioPage implements OnInit {
       clickableIcons: true
     };
     this.map = new google.maps.Map(this.mapRef.nativeElement, mapOptions);
-    //this.addMarker(this.newPosition);
     google.maps.event.addListenerOnce(this.map, 'tilesloaded', () => {
       this.addMarker(this.newPosition);
     });
 
     // Dibuja las zonas en el mapa
-    for (const zona in this.zonas) {
+    for (const zona of Object.keys(this.zonas)) {
       const coordenadas = this.zonas[zona];
-      const poligono = new google.maps.Polygon({
+      poligono = new google.maps.Polygon({
         paths: coordenadas,
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
@@ -210,11 +210,39 @@ export class InicioPage implements OnInit {
         fillOpacity: 0.35,
       });
       poligono.setMap(this.map);
+      break; // Este bucle se ejecutará solo una vez para el primer polígono.
+    }
+
+    if (!poligono) {
+      console.error('Poligono no definido');
+      return;
     }
 
     // Obtiene los puntos del almacenamiento
     const puntoSOS = await this.storage?.get('puntoSOS');
     const puntoREP = await this.storage?.get('puntoREP');
+
+    // Verifica puntosSOS dentro de la geocerca
+    let contadorSOS = 0;
+    let contadorREP = 0;
+
+    if (puntoSOS) {
+      for (const point of puntoSOS) {
+        if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(point.lat, point.lng), poligono)) {
+          contadorSOS++;
+          console.log(`Contador SOS en ${Object.keys(this.zonas)[0]}: ${contadorSOS}`);
+        }
+      }
+    }
+
+    if (puntoREP) {
+      for (const point of puntoREP) {
+        if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(point.lat, point.lng), poligono)) {
+          contadorREP++;
+          console.log(`Contador REP en ${Object.keys(this.zonas)[0]}: ${contadorREP}`);
+        }
+      }
+    }
 
     // Dibuja círculos en las ubicaciones de 'puntoSOS'
     if (puntoSOS) {
@@ -433,7 +461,7 @@ export class InicioPage implements OnInit {
 
   async compartirLocation() {
     let numbers: string[] = [];
-    const idUsuario = await this.endpointService.getUserData(); 
+    const idUsuario = await this.endpointService.getUserData();
     const contactData: Contacts[] | undefined = await this.endpointService.getContactoAll(idUsuario);
 
     if (contactData) {
@@ -452,7 +480,7 @@ export class InicioPage implements OnInit {
 
   async compartirTiempoReal() {
     let numbers: string[] = [];
-    const idUsuario = await this.endpointService.getUserData(); 
+    const idUsuario = await this.endpointService.getUserData();
     const contactData: Contacts[] | undefined = await this.endpointService.getContactoAll(idUsuario);
 
     if (contactData) {
