@@ -5,7 +5,8 @@ import { Observable, catchError, from, map, of, tap, throwError } from 'rxjs';
 import { Storage } from '@ionic/storage-angular';
 
 import { environment } from "src/environments/environment";
-import { UserData, Contacts, Contact, CreateContact, CreateActivity, ActivityAll, UpdateUserResponse } from '../interfaces/index';
+import { UserData, Contacts, Contact, CreateContact, CreateActivity, ActivityAll, UpdateUserResponse, VerPublicaciones } from '../interfaces/index';
+import { PublicacionesGuardadas } from '../interfaces/publicaciones-guardadas.entity';
 
 @Injectable({
     providedIn: 'root'
@@ -58,15 +59,15 @@ export class EndpointService {
 
     updateUser(id: string, nombre: string, email: string, institucion: string, identificador_politecnico: number): Observable<UpdateUserResponse> {
         const url = `${this.baseUrl}/perfil/${id}`
-        const body = { nombre: nombre, email: email, institucion: institucion, identificador_politecnico: identificador_politecnico}
+        const body = { nombre: nombre, email: email, institucion: institucion, identificador_politecnico: identificador_politecnico }
         return this.http.patch<UpdateUserResponse>(url, body);
     }
 
     createActivity(latitud: string, longitud: string, idUsuario: number, accion: boolean): Observable<CreateActivity> {
         const url = `${this.baseUrl}/actividad`
-        
-        const body = {latitud: latitud, longitud: longitud, id_usuario: idUsuario, accion: accion}
-        
+
+        const body = { latitud: latitud, longitud: longitud, id_usuario: idUsuario, accion: accion }
+
         return this.http.post<CreateActivity>(url, body)
     }
 
@@ -102,7 +103,7 @@ export class EndpointService {
 
     createContacto(nombreContacto: string, numeroContacto: string, idUsuario: number): Observable<any> {
         const url = `${this.baseUrl}/contactos`
-        const body = { nombre_contacto: nombreContacto, numero_contacto: numeroContacto, id_usuario: idUsuario}
+        const body = { nombre_contacto: nombreContacto, numero_contacto: numeroContacto, id_usuario: idUsuario }
 
         return this.http.post<any>(url, body);
     }
@@ -111,6 +112,54 @@ export class EndpointService {
         return this.http.delete<boolean>(`${this.baseUrl}/contactos/${id}`);
     }
 
-    
+    createPublicacion(id: number, latitud: number, longitud: number, texto_publicacion: string, incognito: boolean): Observable<any> {
+        const url = `${this.baseUrl}/publicacion`
+        const body = { latitud: latitud, longitud: longitud, incognito: incognito, texto_publicacion: texto_publicacion, id_usuario: id }
+
+        return this.http.post<any>(url, body);
+    }
+
+    createComentarioPublicacion() {
+    }
+
+    createPublicacionGuardada() {
+    }
+
+    async findAllPublications(): Promise<VerPublicaciones[] | undefined> {
+        try {
+            const publicaciones = await this.http.get<VerPublicaciones[]>(`${this.baseUrl}/foro/publicacion`).toPromise();
+            return publicaciones;
+        } catch (error) {
+            console.error("Error al obtener las publicaciones:", error);
+            throw error;
+        }
+    }
+
+    async findByIdComentariosPublications() {
+    }
+
+    async findOnePublications(id: string): Promise<VerPublicaciones | undefined> {
+        try {
+            const publicacion = await this.http.get<VerPublicaciones>(`${this.baseUrl}/foro/publicacion${id}`).toPromise();
+            return publicacion;
+        } catch (error) {
+            console.error("Error al obtener las publicaciones:", error);
+            throw error;
+        }
+    }
+
+    async findOnePublicationsGuardadas(id: string): Promise<PublicacionesGuardadas | undefined>  {
+        try {
+            const publicacionGuardada = await this.http.get<PublicacionesGuardadas>(`${this.baseUrl}/foro/guardadas/${id}`).toPromise();
+            return publicacionGuardada;
+        } catch (error) {
+            console.error("Error al obtener las publicaciones:", error);
+            throw error;
+        }
+    }
+
+    deletePublicacion(id: number): Observable<boolean> {
+        return this.http.delete<boolean>(`${this.baseUrl}/foro/publicacion/${id}`);
+    }
 
 }
