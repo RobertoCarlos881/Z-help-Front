@@ -29,6 +29,9 @@ export class ZHelpPage implements OnInit {
   }
 
   mostrarMenu() {
+    const event = new CustomEvent('actualizarMenu', { detail: { actualizar: true } });
+  window.dispatchEvent(event);
+
     this.menu.enable(true, 'MENU');
     this.menu.open('MENU');
   }

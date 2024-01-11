@@ -37,6 +37,14 @@ export class AppComponent {
     private endpointService: EndpointService,
     private menu: MenuController
   ) {
+    window.addEventListener('actualizarMenu', (event: Event) => {
+      const customEvent = event as CustomEvent;
+      if (customEvent && customEvent.detail && customEvent.detail.actualizar) {
+        this.mostrarNombre().then(userData => {
+          this.datosUsuario = userData;
+        });
+      }
+    });
     this.OneSignalInit();
   }
 
