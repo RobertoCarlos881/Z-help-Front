@@ -26,7 +26,8 @@
     </ion-segment-button>
   </ion-segment>
 
-  <ion-card>
+  <ion-card *ngFor="let publicacion of publicacionData">
+    <div></div>
     <ion-grid fixed>
       <ion-row class="grid-publi">
         <ion-col size="2">
@@ -37,14 +38,14 @@
 
         <ion-col size="7">
           <ion-card-header class="pad-top-name" mode="md">
-            <ion-card-title>PRAXEDES</ion-card-title>
-            <ion-card-subtitle>Hace 5 minutos</ion-card-subtitle>
+            <ion-card-title>{{ publicacion.usuarios.nombre }}</ion-card-title>
+            <ion-card-subtitle>{{ publicacion.tiempoTranscurrido }}</ion-card-subtitle>
           </ion-card-header>
         </ion-col>
 
         <ion-col size="1.5">
-          <ion-button (click)="presentToast('bottom')" (click)="onClick()" fill="clear" class="ion-no-padding">
-            <ion-icon [name]=" guardado ? 'bookmark':'bookmark-outline' "></ion-icon>
+          <ion-button (click)="presentToast('bottom')" (click)="onClick(publicacion)" fill="clear" class="ion-no-padding">
+            <ion-icon [name]="publicacion.publicacionesGuardadas ? 'bookmark' : 'bookmark-outline'"></ion-icon>
           </ion-button>
         </ion-col>
 
@@ -56,11 +57,11 @@
       </ion-row>
     </ion-grid>
 
+    <br>
     <ion-card-content>
       <ion-list mode="md">
         <ion-item>
-          <p>Amigos, tengan mucho cuidado al pasar por esta zona, via a unos porros tomando y fumando alli en la mañana.
-          </p>
+          <p>{{ publicacion.texto_publicacion }}</p>
         </ion-item>
         <ion-item lines="full" class="ion-padding-bottom">
 

@@ -113,7 +113,7 @@ export class EndpointService {
     }
 
     createPublicacion(id: number, latitud: number, longitud: number, texto_publicacion: string, incognito: boolean): Observable<any> {
-        const url = `${this.baseUrl}/publicacion`
+        const url = `${this.baseUrl}/foro/publicacion`
         const body = { latitud: latitud, longitud: longitud, incognito: incognito, texto_publicacion: texto_publicacion, id_usuario: id }
 
         return this.http.post<any>(url, body);
@@ -122,12 +122,16 @@ export class EndpointService {
     createComentarioPublicacion() {
     }
 
-    createPublicacionGuardada() {
+    createPublicacionGuardada(id_usuario: number, id_publicacion: number) {
+        const url = `${this.baseUrl}/foro/guardadas`
+        const body = { id_usuario: id_usuario, id_publicacion: id_publicacion }
+
+        return this.http.post<any>(url, body);
     }
 
-    async findAllPublications(): Promise<VerPublicaciones[] | undefined> {
+    async findAllPublications(id: string): Promise<VerPublicaciones[] | undefined> {
         try {
-            const publicaciones = await this.http.get<VerPublicaciones[]>(`${this.baseUrl}/foro/publicacion`).toPromise();
+            const publicaciones = await this.http.get<VerPublicaciones[]>(`${this.baseUrl}/foro/publicacion/${id}`).toPromise();
             return publicaciones;
         } catch (error) {
             console.error("Error al obtener las publicaciones:", error);
@@ -140,7 +144,7 @@ export class EndpointService {
 
     async findOnePublications(id: string): Promise<VerPublicaciones | undefined> {
         try {
-            const publicacion = await this.http.get<VerPublicaciones>(`${this.baseUrl}/foro/publicacion${id}`).toPromise();
+            const publicacion = await this.http.get<VerPublicaciones>(`${this.baseUrl}/foro/publicacionuser/${id}`).toPromise();
             return publicacion;
         } catch (error) {
             console.error("Error al obtener las publicaciones:", error);
@@ -160,6 +164,10 @@ export class EndpointService {
 
     deletePublicacion(id: number): Observable<boolean> {
         return this.http.delete<boolean>(`${this.baseUrl}/foro/publicacion/${id}`);
+    }
+
+    deletePublicacionGuardada(id: number): Observable<boolean> {
+        return this.http.delete<boolean>(`${this.baseUrl}/foro/guardadas/${id}`);
     }
 
 }

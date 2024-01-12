@@ -72,7 +72,8 @@ export class ContactsPage implements OnInit {
 
       this.contactos = this.contactos.filter(contacto => contacto.id !== id);
     } catch (error) {
-      // Maneja el error de la eliminación
+      console.log(error);
+      
     }
   }
 

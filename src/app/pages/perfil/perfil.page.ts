@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { EndpointService } from 'src/app/services/endpoint.service';
-import { Storage } from '@ionic/storage-angular';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -12,19 +10,14 @@ import { PopoverController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
   private router = inject(Router);
-  private storage: Storage | null = null;
   datosUsuario: any;
 
   constructor(
     private endpointService: EndpointService,
-    private storageService: Storage,
     private authService: AuthService,
-    private popoverCtrl: PopoverController) { }
+    ) { }
 
   async ngOnInit() {
-    const storage = await this.storageService.create();
-    this.storage = storage;
-    
     this.obtenerDatosUser().then(userData => {
       this.datosUsuario = userData;
     });
