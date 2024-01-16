@@ -6,3 +6,4 @@ export interface VerPublicaciones {
     created_at:        Date;
     id_usuario:        number;
 }
+
